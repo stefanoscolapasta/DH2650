@@ -8,7 +8,7 @@ public class Enemy : MonoBehaviour
     public int health = 10;
 
     void Start(){
-        g = GameObject.FindWithTag("Test Enemy");
+        g = gameObject;
         p = GameObject.FindWithTag("Player");
         Debug.Log(g.tag);
     }
