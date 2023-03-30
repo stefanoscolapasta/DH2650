@@ -21,4 +21,18 @@ public class Enemy : MonoBehaviour
         g.transform.position = new Vector3(g.transform.position.x,1,g.transform.position.z);
         //g.transform.rotation = new Quaternion(0,0,0,0);
     }
+
+    void OnTriggerEnter(Collider other)
+        {
+            Debug.Log("Testttt1");
+            if(other.tag == "Kunai"){
+                Debug.Log("Test2");
+                health -= 5;
+                if(health <= 0){
+                    Destroy(g);
+                }
+                Debug.Log("LeafKunaiPickedUp");
+                Destroy(other.gameObject);
+            }
+        }
 }

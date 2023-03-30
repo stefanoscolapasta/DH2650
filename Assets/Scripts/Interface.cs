@@ -76,6 +76,20 @@ namespace StarterAssets
                 Destroy(other.gameObject);
             }
         }
+        void OnTriggerStay(Collider other)
+        {
+            GameObject otherGameObject = other.gameObject;
+            if(otherGameObject.tag == "Test Enemy"){
+                Debug.Log("Tag works");
+                if(otherGameObject.name == "Rat"){
+                   health -= 1;
+                    Debug.Log(health); 
+                }
+            }
+            if(health <= 0){
+                Destroy(self);
+            }
+        }
 
         void leafKunai(){
             
