@@ -18,12 +18,11 @@ public class Enemy : MonoBehaviour
     }
 
     void FixedUpdate() {
-        g.transform.LookAt(p.transform.position);
-        g.transform.Translate(Vector3.forward * speed * Time.deltaTime);
-        //putHealhBarOnEnemy();
-        //g.transform.position.y = 0;
-        //g.transform.position = new Vector3(g.transform.position.x,1,g.transform.position.z);
-        //g.transform.rotation = new Quaternion(0,0,0,0);
+        putHealhBarOnEnemy();
+        if(g.tag == "Enemy"){
+            g.transform.LookAt(p.transform.position);
+            g.transform.Translate(Vector3.forward * speed * Time.deltaTime);
+        }
     }
 
     void OnTriggerEnter(Collider other)

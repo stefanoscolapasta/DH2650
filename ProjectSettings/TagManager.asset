@@ -7,6 +7,10 @@ TagManager:
   - CinemachineTarget
   - Kunai
   - Enemy
+<<<<<<< HEAD
+=======
+  - RatSpawn
+>>>>>>> refs/remotes/origin/demo
   layers:
   - Default
   - TransparentFX
