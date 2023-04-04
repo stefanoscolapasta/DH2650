@@ -18,13 +18,13 @@ public class Enemy : MonoBehaviour
         
         g.transform.Translate(Vector3.forward * speed * Time.deltaTime);
         //g.transform.position.y = 0;
-        g.transform.position = new Vector3(g.transform.position.x,1,g.transform.position.z);
+        //g.transform.position = new Vector3(g.transform.position.x,1,g.transform.position.z);
         //g.transform.rotation = new Quaternion(0,0,0,0);
     }
 
     void OnTriggerEnter(Collider other)
         {
-            Debug.Log("Testttt1");
+
             if(other.tag == "Kunai"){
                 Debug.Log("Test2");
                 health -= 5;
