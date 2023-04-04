@@ -12,9 +12,6 @@ namespace StarterAssets
 		public Vector2 look;
 		public bool jump;
 		public bool sprint;
-		public bool ability1;
-		public bool ability2;
-		public bool ability3;
 
 		[Header("Movement Settings")]
 		public bool analogMovement;
@@ -46,24 +43,9 @@ namespace StarterAssets
 		{
 			SprintInput(value.isPressed);
 		}
-
-		public void OnAbility1(InputValue value)
-		{
-			AbilityInput1(value.isPressed);
-		}
-		public void OnAbility2(InputValue value)
-		{
-			AbilityInput2(value.isPressed);
-		}
-		public void OnAbility3(InputValue value)
-		{
-			AbilityInput3(value.isPressed);
-		}
-
-
 #endif
 
-		
+
 		public void MoveInput(Vector2 newMoveDirection)
 		{
 			move = newMoveDirection;
@@ -83,19 +65,7 @@ namespace StarterAssets
 		{
 			sprint = newSprintState;
 		}
-
-		public void AbilityInput1(bool newAbilityState1){
-			ability1 = newAbilityState1;
-		}
-
-		public void AbilityInput2(bool newAbilityState2){
-			ability2 = newAbilityState2;
-		}
-
-		public void AbilityInput3(bool newAbilityState3){
-			ability3 = newAbilityState3;
-		}
-
+		
 		private void OnApplicationFocus(bool hasFocus)
 		{
 			SetCursorState(cursorLocked);

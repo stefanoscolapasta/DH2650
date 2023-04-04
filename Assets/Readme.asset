@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: Readme
   m_EditorClassIdentifier: 
   icon: {fileID: 2800000, guid: 44a17a5b205fcd349a24700e6f5615bd, type: 3}
-  title: Third Person Template
+  title: First Person Template
   sections:
   - heading: About this template
-    text: This template provides the foundation to build a project in the third person perspective, making use of the Starter Assets. It is powered by the Universal Render Pipeline (URP).
+    text: This template provides the foundation to build a project in the first person perspective, making use of the Starter Assets. It is powered by the Universal Render Pipeline (URP).
     linkText: 
     url: 
   - heading:
@@ -38,7 +38,7 @@ MonoBehaviour:
   - heading: 
     text: The Starter Asset packages are compatible with Unity 2020 LTS and 2021 LTS. They leverage Unity's CharacterController component.
     linkText: 
-    url: 
+    url:
   - heading: Important note
     text: The Starter Asset packages require both Input System and Cinemachine packages
       to work. See the documentation (Assets/StarterAssets_Documentation.pdf) for more details.
