@@ -3,14 +3,7 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags:
-  - CinemachineTarget
-  - Kunai
-  - Enemy
-<<<<<<< HEAD
-=======
-  - RatSpawn
->>>>>>> refs/remotes/origin/demo
+  tags: []
   layers:
   - Default
   - TransparentFX
@@ -20,8 +13,8 @@ TagManager:
   - UI
   - 
   - 
-  - Character
-  - Ground
+  - 
+  - 
   - 
   - 
   - 
