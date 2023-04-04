@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - CinemachineTarget
+  - Kunai
+  - Enemy
+  - RatSpawn
   layers:
   - Default
   - TransparentFX
