@@ -29,7 +29,7 @@ namespace StarterAssets
         }
 
         // Update is called once per frame
-        void Update()
+        void FixedUpdate()
         
         {
             //Stuff that happens every GameTic
@@ -52,14 +52,20 @@ namespace StarterAssets
             if(playerInput.ability1 && abilities[0] && abilityColdown1 <= 0){
                 abilityColdown1 = 1f;
                 leafKunai();
+            } else{
+               playerInput.ability1 = false; 
             }
             if(playerInput.ability2 && abilities[1] && abilityColdown2 <= 0){
                 abilityColdown2 = 6.5f;
                 AoeSmellyCloud();
                
+            } else{
+               playerInput.ability2 = false; 
             }
             if(playerInput.ability3 && abilities[0]){
                 Debug.Log("knas plz3");
+            } else{
+               playerInput.ability3 = false; 
             }
         }
         //pick-up

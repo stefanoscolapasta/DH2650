@@ -252,7 +252,7 @@
                     "path": "<Keyboard>/#(1)",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "KeyboardMouse",
                     "action": "Ability1",
                     "isComposite": false,
                     "isPartOfComposite": false
