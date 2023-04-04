@@ -50,7 +50,7 @@ namespace StarterAssets
             }
 
             if(playerInput.ability1 && abilities[0] && abilityColdown1 <= 0){
-                abilityColdown1 = 0.5f;
+                abilityColdown1 = 1f;
                 leafKunai();
             }
             if(playerInput.ability2 && abilities[1] && abilityColdown2 <= 0){
@@ -109,4 +109,3 @@ namespace StarterAssets
         }
     }
 }
-
