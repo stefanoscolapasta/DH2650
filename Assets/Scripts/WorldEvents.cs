@@ -4,7 +4,7 @@ public class WorldEvents : MonoBehaviour
 {
     GameObject g;
     public GameObject rat;
-    const int[] enemyLimits = {3,5,9};
+    int[] enemyLimits = {3,5,9};
     int spawnedEnemies = 1;
     MeshRenderer render;
     int currentWave = 0;

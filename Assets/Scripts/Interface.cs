@@ -85,7 +85,7 @@ namespace StarterAssets
         void OnTriggerStay(Collider other)
         {
             GameObject otherGameObject = other.gameObject;
-            if(otherGameObject.tag == "Test Enemy"){
+            if(otherGameObject.tag == "Enemy"){
                 Debug.Log("Tag works");
                 if(otherGameObject.name == "Rat"){
                    health -= 1;
