@@ -2,6 +2,7 @@ using System.Collections;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 #if ENABLE_INPUT_SYSTEM && STARTER_ASSETS_PACKAGES_CHECKED
 using UnityEngine.InputSystem;
 #endif
@@ -19,11 +20,13 @@ namespace StarterAssets
         private GameObject smelly;
         private Transform shootingPoint;
         private GameObject self;
-        Vector3 pos = new Vector3(0f, 0.8f, 0f);
+        Vector3 pos = new Vector3(0f, 1f, 0f);
+        private Slider playerSlider;
         // Start is called before the first frame update
         void Start()
         {
             self = GameObject.FindGameObjectsWithTag("Player")[0];
+            playerSlider = GameObject.FindGameObjectWithTag("PlayerSlider").GetComponent<Slider>();
             playerInput = GetComponent<StarterAssetsInputs>();
             shootingPoint = GetComponent<Rigidbody>().transform;
         }
@@ -32,6 +35,7 @@ namespace StarterAssets
         void FixedUpdate()
         
         {
+            playerSlider.value = health;
             //Stuff that happens every GameTic
             if(smellyAbilityActivated == true){
                 smelly.transform.position = self.transform.position + pos;
@@ -87,10 +91,10 @@ namespace StarterAssets
             GameObject otherGameObject = other.gameObject;
             if(otherGameObject.tag == "Enemy"){
                 Debug.Log("Tag works");
-                if(otherGameObject.name == "Rat"){
-                   health -= 1;
-                    Debug.Log(health); 
-                }
+                //if(otherGameObject.name == "Rat"){
+                health -= 1;
+                Debug.Log(health); 
+                //}
             }
             if(health <= 0){
                 Destroy(self);
