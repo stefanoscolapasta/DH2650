@@ -20,10 +20,10 @@ public class WorldEvents : MonoBehaviour
         
         if(waveSpawned == false){
             for(int i = 0; i < enemyLimits[currentWave]; i++){
-                int x = Random.Range(1,25);
+                int x = -(Random.Range(15,35));
                 //float z = Random.Range(0,render.bounds.size.z);
-                int z = Random.Range(1,25);
-                GameObject enemy = Instantiate(rat,new Vector3(x,0,z),Quaternion.identity);
+                int z = Random.Range(14,32);
+                GameObject enemy = Instantiate(rat,new Vector3(x,47,z),Quaternion.identity);
                 enemy.tag = "Enemy";
             }
             waveSpawned = true;
@@ -43,10 +43,10 @@ public class WorldEvents : MonoBehaviour
             Debug.Log("Wave " + currentWave + " done");
             currentWave++;
             for(int i = 0; i < enemyLimits[currentWave]; i++){
-                int x = Random.Range(1,25);
+                int x = -(Random.Range(15,35));
                 //float z = Random.Range(0,render.bounds.size.z);
-                int z = Random.Range(1,25);
-                GameObject enemy = Instantiate(rat,new Vector3(x,0,z),Quaternion.identity);
+                int z = Random.Range(14,32);
+                GameObject enemy = Instantiate(rat,new Vector3(x,47,z),Quaternion.identity);
                 enemy.tag = "Enemy";
             }
         }

@@ -4,6 +4,7 @@ public class Enemy : MonoBehaviour
 {
     GameObject g;
     GameObject p;
+    public GameObject grass;
     public int speed = 3;
     public int health = 10;
     private int currentHealth;
@@ -29,6 +30,7 @@ public class Enemy : MonoBehaviour
             Debug.Log("Test2");
             health -= 5;
             if(health <= 0){
+                GameObject grassClone = Instantiate(grass,new Vector3(g.transform.position.x,47.25f,g.transform.position.z),Quaternion.identity);
                 Destroy(g);
             }
             Debug.Log("LeafKunaiPickedUp");
