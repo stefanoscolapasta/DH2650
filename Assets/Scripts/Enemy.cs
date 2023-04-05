@@ -9,7 +9,10 @@ public class Enemy : MonoBehaviour
     public int health = 10;
     private int currentHealth;
     public Slider healthBar;
-
+    WorldEvents world;
+    void Awake(){
+        //world = GameObject.Find("").GetComponent<WorldEvents>();
+    }
     void Start(){
         g = gameObject;
         p = GameObject.FindWithTag("Player");
@@ -31,6 +34,7 @@ public class Enemy : MonoBehaviour
             health -= 5;
             if(health <= 0){
                 GameObject grassClone = Instantiate(grass,new Vector3(g.transform.position.x,47.25f,g.transform.position.z),Quaternion.identity);
+                world.slainEnemies ++;
                 Destroy(g);
             }
             Debug.Log("LeafKunaiPickedUp");

@@ -9,10 +9,14 @@ public class WorldEvents : MonoBehaviour
     MeshRenderer render;
     int currentWave = 0;
     bool waveSpawned = false;
+    public int slainEnemies = 0;
+    private int oldSlainEnemies = 0;
+    GameObject progressGrass;
 
     void Start(){
         g = gameObject;
         render = GetComponent<MeshRenderer>();
+        progressGrass = GameObject.FindWithTag("ProgressGrass");
     }
 
     void FixedUpdate() {
@@ -28,6 +32,12 @@ public class WorldEvents : MonoBehaviour
             }
             waveSpawned = true;
         }
+        if(oldSlainEnemies != slainEnemies){
+            oldSlainEnemies ++;
+            progressGrass.gameObject.transform.localScale += new Vector3(oldSlainEnemies,0,oldSlainEnemies);
+        }
+            
+        
        // var spawnedEnemies : GameObject[];
        // spawnedEnemies = GameObject.FindGameObjectsWithTag("Enemy");
       /*  if(spawn == 1 && spawnedEnemies < enemyLimits[currentWave]){

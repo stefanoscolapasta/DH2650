@@ -9,6 +9,7 @@ TagManager:
   - RatSpawn
   - Enemy
   - PlayerSlider
+  - ProgressGress
   layers:
   - Default
   - TransparentFX
