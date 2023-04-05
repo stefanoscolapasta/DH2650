@@ -639,6 +639,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rat: {fileID: 1627716168}
+  enemyLimits: 0300000005000000090000000c00000014000000
+  currentWave: 0
   slainEnemies: 0
 --- !u!1 &314931417
 GameObject:
@@ -675,7 +677,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -18.5, y: -2.4569702}
+  m_AnchoredPosition: {x: -29.3, y: -4.3}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &314931419
@@ -2482,7 +2484,6 @@ GameObject:
   - component: {fileID: 2122388485}
   - component: {fileID: 2122388484}
   - component: {fileID: 2122388483}
-  - component: {fileID: 2122388482}
   m_Layer: 0
   m_Name: ProgressBarGrass
   m_TagString: ProgressGress
@@ -2490,20 +2491,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!136 &2122388482
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2122388481}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.5000001
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
 --- !u!23 &2122388483
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -2562,7 +2549,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2122388481}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -27.41, y: 47.221516, z: 22.19}
+  m_LocalPosition: {x: -27.41, y: 47.228, z: 22.19}
   m_LocalScale: {x: 0.1, y: 0.001, z: 0.1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2693,6 +2680,7 @@ MonoBehaviour:
     type: 3}
   smellyCloud: {fileID: 5252572269514978681, guid: 9e051528ea57ee8468f949834bed06a3,
     type: 3}
+  text: {fileID: 314931419}
 --- !u!136 &135756641613574981
 CapsuleCollider:
   m_ObjectHideFlags: 0
