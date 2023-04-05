@@ -11,7 +11,7 @@ public class Enemy : MonoBehaviour
     public Slider healthBar;
     WorldEvents world;
     void Awake(){
-        //world = GameObject.Find("").GetComponent<WorldEvents>();
+        world = GameObject.Find("Ground").GetComponent<WorldEvents>();
     }
     void Start(){
         g = gameObject;
@@ -34,7 +34,7 @@ public class Enemy : MonoBehaviour
             health -= 5;
             if(health <= 0){
                 GameObject grassClone = Instantiate(grass,new Vector3(g.transform.position.x,47.25f,g.transform.position.z),Quaternion.identity);
-                //world.slainEnemies ++;
+                world.slainEnemies ++;
                 //Debug.Log(world.slainEnemies);
                 Destroy(g);
             }

@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 #if ENABLE_INPUT_SYSTEM && STARTER_ASSETS_PACKAGES_CHECKED
 using UnityEngine.InputSystem;
 #endif
@@ -22,9 +23,14 @@ namespace StarterAssets
         private GameObject self;
         Vector3 pos = new Vector3(0f, 1f, 0f);
         private Slider playerSlider;
+        public TextMeshProUGUI text;
+        private WorldEvents world; 
+        //private int currentWave = 0;
         // Start is called before the first frame update
         void Start()
         {
+            //text = GameObject.FindWithTag("");
+            world = GameObject.Find("Ground").GetComponent<WorldEvents>();
             self = GameObject.FindGameObjectsWithTag("Player")[0];
             playerSlider = GameObject.FindGameObjectWithTag("PlayerSlider").GetComponent<Slider>();
             playerInput = GetComponent<StarterAssetsInputs>();
@@ -49,8 +55,7 @@ namespace StarterAssets
                 if(abilityColdown2 <= 0){
                     Destroy(smelly, 1);
                     smellyAbilityActivated = false;
-                }
-                
+                }   
             }
 
             if(playerInput.ability1 && abilities[0] && abilityColdown1 <= 0){
@@ -71,6 +76,8 @@ namespace StarterAssets
             } else{
                playerInput.ability3 = false; 
             }
+
+            text.text = world.slainEnemies + "/" + world.enemyLimits[world.currentWave];
         }
         //pick-up
         void OnTriggerEnter(Collider other)
