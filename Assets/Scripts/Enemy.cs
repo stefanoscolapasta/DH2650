@@ -9,6 +9,8 @@ public class Enemy : MonoBehaviour
     public int health = 10;
     private int currentHealth;
     public Slider healthBar;
+    bool attacking = false;
+    float attackCooldown = 3f;
     WorldEvents world;
     void Awake(){
         world = GameObject.Find("Ground").GetComponent<WorldEvents>();
@@ -23,7 +25,15 @@ public class Enemy : MonoBehaviour
         healthBar.value = health;
         if(g.tag == "Enemy"){
             g.transform.LookAt(p.transform.position);
-            g.transform.Translate(Vector3.forward * speed * Time.deltaTime);
+            float distToPlayer = Vector3.Distance(p.transform.position,transform.position);
+            if(distToPlayer > 5 || attackCooldown < 0f){
+                g.transform.Translate(Vector3.forward * speed * Time.deltaTime);
+            } else{
+                if(attackCooldown > 0f){
+                    attackCooldown -= Time.deltaTime;
+                }
+            }
+            
         }
     }
 
@@ -41,5 +51,12 @@ public class Enemy : MonoBehaviour
             Debug.Log("LeafKunaiPickedUp");
             Destroy(other.gameObject);
         }
+    }
+
+    public float getAtkCD(){
+        return this.attackCooldown;
+    }
+    public void setAtkCD(float cd){
+        this.attackCooldown = cd;
     }
 }

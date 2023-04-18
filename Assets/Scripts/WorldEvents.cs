@@ -20,7 +20,6 @@ public class WorldEvents : MonoBehaviour
         render = GetComponent<MeshRenderer>();
         progressGrass = GameObject.FindWithTag("ProgressGress");
         playableLevels = GameObject.FindGameObjectsWithTag("PlayableLevel");
-        
     }
 
     void FixedUpdate() {
