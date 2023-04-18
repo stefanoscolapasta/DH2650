@@ -13,11 +13,14 @@ public class WorldEvents : MonoBehaviour
     private int oldSlainEnemies = 0;
     private int scaleEnemies = 0;
     GameObject progressGrass;
+    GameObject[] playableLevels;
 
     void Start(){
         g = gameObject;
         render = GetComponent<MeshRenderer>();
         progressGrass = GameObject.FindWithTag("ProgressGress");
+        playableLevels = GameObject.FindGameObjectsWithTag("PlayableLevel");
+        
     }
 
     void FixedUpdate() {
@@ -25,10 +28,11 @@ public class WorldEvents : MonoBehaviour
         
         if(waveSpawned == false){
             for(int i = 0; i < enemyLimits[currentWave]; i++){
+                
                 int x = -(Random.Range(15,35));
                 //float z = Random.Range(0,render.bounds.size.z);
                 int z = Random.Range(14,32);
-                GameObject enemy = Instantiate(rat,new Vector3(x,47,z),Quaternion.identity);
+                GameObject enemy = Instantiate(rat,new Vector3(x,48f,z),Quaternion.identity);
                 enemy.tag = "Enemy";
             }
             waveSpawned = true;
