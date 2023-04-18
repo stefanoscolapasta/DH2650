@@ -19,6 +19,7 @@ public class WorldEvents : MonoBehaviour
     bool[] clearedIsland = {false,false,false,false};
     Vector3[] islandWGD = new Vector3[4];
     int AssignedIsland;
+    int oldAssigned = 0;
 
     void Start(){
         player = GameObject.FindWithTag("Player");
@@ -58,6 +59,11 @@ public class WorldEvents : MonoBehaviour
             waveSpawned = true;
         }
 
+        if(AssignedIsland != oldAssigned){
+            oldAssigned = AssignedIsland;
+            player.transform.position = playableLevels[AssignedIsland].transform.position;
+        }
+
         if(slainEnemies > oldSlainEnemies){
             Debug.Log(slainEnemies);
             Debug.Log(oldSlainEnemies);
@@ -80,6 +86,11 @@ public class WorldEvents : MonoBehaviour
         }*/
         if(GameObject.FindGameObjectsWithTag("Enemy").Length == 0){
             Debug.Log("Wave " + currentWave + " done");
+            if(currentWave >= enemyLimits.Length - 1){
+                currentWave = 0;
+                clearedIsland[AssignedIsland] = true;
+                AssignedIsland ++;
+            }
             currentWave++;
             slainEnemies = 0;
             oldSlainEnemies = 0;
