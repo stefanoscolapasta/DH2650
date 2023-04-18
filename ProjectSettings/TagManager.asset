@@ -11,6 +11,7 @@ TagManager:
   - PlayerSlider
   - ProgressGress
   - PlayableLevel
+  - LevelWGD
   layers:
   - Default
   - TransparentFX
