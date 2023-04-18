@@ -98,10 +98,14 @@ namespace StarterAssets
         {
             GameObject otherGameObject = other.gameObject;
             if(otherGameObject.tag == "Enemy"){
-                Debug.Log("Tag works");
+                if(otherGameObject.GetComponent<Enemy>().getAtkCD() <= 0f){
+                    Debug.Log("Tag works");
                 //if(otherGameObject.name == "Rat"){
                 health -= 1;
                 Debug.Log(health); 
+                otherGameObject.GetComponent<Enemy>().setAtkCD(3f);
+                }
+                
                 //}
             }
             if(health <= 0){
