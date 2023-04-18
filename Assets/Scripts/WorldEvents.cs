@@ -4,7 +4,7 @@ public class WorldEvents : MonoBehaviour
 {
     GameObject g;
     public GameObject rat;
-    public int[] enemyLimits = {3,5,9,12,20};
+    public int[] enemyLimits = {1,2,3};
     int spawnedEnemies = 0;
     MeshRenderer render;
     public int currentWave = 0;
@@ -14,13 +14,34 @@ public class WorldEvents : MonoBehaviour
     private int scaleEnemies = 0;
     GameObject progressGrass;
     GameObject[] playableLevels;
+    GameObject player;
+    bool[] clearedIsland = {false,false,false,false};
+    Vector3[] islandWGD = new Vector3[4];
+    int AssignedIsland;
 
     void Start(){
-        g = gameObject;
-        render = GetComponent<MeshRenderer>();
-        progressGrass = GameObject.FindWithTag("ProgressGress");
+        player = GameObject.FindWithTag("Player");
         playableLevels = GameObject.FindGameObjectsWithTag("PlayableLevel");
-        
+        InitalizeGame();
+        g = gameObject;
+        progressGrass = GameObject.FindWithTag("ProgressGress");
+        int counter = 0;
+        //foreach(GameObject level in playableLevels){
+            MeshRenderer islandRenderer = playableLevels[counter].GetComponent<MeshRenderer>(); 
+            islandWGD[counter] = islandRenderer.bounds.size;
+            counter ++;
+        //}
+        //playableLevels = GameObject.FindGameObjectsWithTag("PlayableLevel");
+
+    }
+
+    
+    void InitalizeGame(){
+        playableLevels = GameObject.FindGameObjectsWithTag("PlayableLevel");
+        int AssignedIsland = 0;//Random.Range(0,3); 
+        player.transform.position = playableLevels[AssignedIsland].transform.position;
+        Debug.Log(player.transform.position);//global
+        Debug.Log(playableLevels[AssignedIsland].transform.localPosition); //local
     }
 
     void FixedUpdate() {
@@ -28,11 +49,13 @@ public class WorldEvents : MonoBehaviour
         
         if(waveSpawned == false){
             for(int i = 0; i < enemyLimits[currentWave]; i++){
-                
-                int x = -(Random.Range(15,35));
+                Vector3 pos = playableLevels[AssignedIsland].transform.position;
+                float radius = (islandWGD[AssignedIsland].x + islandWGD[AssignedIsland].z) / 2;
+                float angle = (Random.Range(0,Mathf.PI));
+                float x = Mathf.Cos(angle)*radius;
+                float y = Mathf.Sin(angle)*radius;
                 //float z = Random.Range(0,render.bounds.size.z);
-                int z = Random.Range(14,32);
-                GameObject enemy = Instantiate(rat,new Vector3(x,48f,z),Quaternion.identity);
+                GameObject enemy = Instantiate(rat,pos + new Vector3(x, 0, y) ,Quaternion.identity);
                 enemy.tag = "Enemy";
             }
             waveSpawned = true;
@@ -73,9 +96,4 @@ public class WorldEvents : MonoBehaviour
         }
 
     }
-
-    void OnTriggerEnter(Collider other)
-        {
-            
-        }
 }
