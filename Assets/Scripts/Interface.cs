@@ -42,7 +42,7 @@ namespace StarterAssets
         void FixedUpdate()
         
         {
-            playerSlider.value = health;
+      //      playerSlider.value = health;
             //Stuff that happens every GameTic
             if(smellyAbilityActivated == true){
                 smelly.transform.position = self.transform.position + pos;
@@ -96,18 +96,7 @@ namespace StarterAssets
         }
         void OnTriggerStay(Collider other)
         {
-            GameObject otherGameObject = other.gameObject;
-            if(otherGameObject.tag == "Enemy"){
-                if(otherGameObject.GetComponent<Enemy>().getAtkCD() <= 0f){
-                    Debug.Log("Tag works");
-                //if(otherGameObject.name == "Rat"){
-                health -= 1;
-                Debug.Log(health); 
-                otherGameObject.GetComponent<Enemy>().setAtkCD(3f);
-                }
-                
-                //}
-            }
+            
             if(health <= 0){
                 Destroy(self);
             }
