@@ -11,7 +11,10 @@ TagManager:
   - PlayerSlider
   - ProgressGress
   - PlayableLevel
+  - VictoryScreen
+  - DeathScreen
   - LevelWGD
+  - HPFill
   layers:
   - Default
   - TransparentFX

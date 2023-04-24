@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ratmove : MonoBehaviour
 {
@@ -15,14 +16,17 @@ public class ratmove : MonoBehaviour
 
     private GameObject player;
     
+    float attackTimeout = 1.0f;
 
+    public int health = 10;
+    public GameObject healthBar;
 
     // Start is called before the first frame update
     void Start()
     {
        turn = wheelTurnSpeed;
        player = GameObject.FindWithTag("Player");
-      
+      // healthBar = GameObject.Find("Healthbar");
     }
 
     // Update is called once per frame
@@ -61,11 +65,21 @@ public class ratmove : MonoBehaviour
 
     void OnTriggerEnter(Collider other){
        // Debug.Log(other.gameObject.tag + " Enter ");
+       attackTimeout -= Time.deltaTime;
         if(other.gameObject.tag == "Player"){
             speed = speed * -1;
             attacking = true;
-            other.gameObject.GetComponent<StarterAssets.Interface>().health -= 10;
-            Debug.Log(other.gameObject.GetComponent<StarterAssets.Interface>().health);
+            if(attackTimeout <= 0f){
+                 other.gameObject.GetComponent<StarterAssets.Interface>().health -= 10;
+                 attackTimeout = 1.0f;
+            }
+           
+
+        }
+        if(other.gameObject.tag == "Kunai"){
+            this.health -= 5;
+            this.healthBar.GetComponent<Slider>().value = this.health;
+            Debug.Log(this.gameObject.name + " got hit");
         }
     }
 

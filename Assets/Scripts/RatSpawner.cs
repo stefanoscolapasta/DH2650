@@ -7,8 +7,12 @@ public class RatSpawner : MonoBehaviour
     public GameObject enemy;
     // Start is called before the first frame update
     void Start()
-    {
-        Instantiate(enemy, this.transform.position, Quaternion.identity);
+    {   
+        for(int i = 0; i < 3; i++){
+            GameObject r = Instantiate(enemy, this.transform.position, Quaternion.identity);
+            r.name = "Rat " + i;
+        }
+        
     }
 
     // Update is called once per frame

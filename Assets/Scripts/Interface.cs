@@ -25,24 +25,30 @@ namespace StarterAssets
         private Slider playerSlider;
         public TextMeshProUGUI text;
         private WorldEvents world; 
+        private GameObject hpBar;
         
         //private int currentWave = 0;
         // Start is called before the first frame update
         void Start()
         {
             //text = GameObject.FindWithTag("");
-            world = GameObject.Find("Ground").GetComponent<WorldEvents>();
+           // world = GameObject.Find("Ground").GetComponent<WorldEvents>();
             self = GameObject.FindGameObjectsWithTag("Player")[0];
             playerSlider = GameObject.FindGameObjectWithTag("PlayerSlider").GetComponent<Slider>();
             playerInput = GetComponent<StarterAssetsInputs>();
             shootingPoint = GetComponent<Rigidbody>().transform;
+            hpBar = GameObject.FindGameObjectWithTag("HPFill");
         }
 
         // Update is called once per frame
         void FixedUpdate()
         
         {
-      //      playerSlider.value = health;
+            if(health <= 0){
+                health = 0;
+                hpBar.SetActive(false);
+            } 
+            playerSlider.value = health;
             //Stuff that happens every GameTic
             if(smellyAbilityActivated == true){
                 smelly.transform.position = self.transform.position + pos;
@@ -59,7 +65,7 @@ namespace StarterAssets
                 }   
             }
 
-            if(playerInput.ability1 && abilities[0] && abilityColdown1 <= 0){
+            if(playerInput.ability1 && /*abilities[0] && */abilityColdown1 <= 0){
                 abilityColdown1 = 1f;
                 leafKunai();
             } else{
@@ -78,12 +84,13 @@ namespace StarterAssets
                playerInput.ability3 = false; 
             }
 
-            text.text = world.slainEnemies + "/" + world.enemyLimits[world.currentWave];
+           // text.text = world.slainEnemies + "/" + world.enemyLimits[world.currentWave];
+           
         }
         //pick-up
         void OnTriggerEnter(Collider other)
         {
-            if(other.name == "LeafKunaiAbility"){
+           /* if(other.name == "LeafKunaiAbility"){
                 abilities[0] = true;
                 Debug.Log("LeafKunaiPickedUp");
                 Destroy(other.gameObject);
@@ -92,14 +99,12 @@ namespace StarterAssets
                 abilities[1] = true;
                 Debug.Log("SmellyCloudPickedUp");
                 Destroy(other.gameObject);
-            }
+            }*/
         }
         void OnTriggerStay(Collider other)
         {
             
-            if(health <= 0){
-                Destroy(self);
-            }
+           
         }
 
         void leafKunai(){
