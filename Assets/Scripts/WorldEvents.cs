@@ -35,7 +35,7 @@ public class WorldEvents : MonoBehaviour
         playableLevels[3] = GameObject.Find("Spawn3");
         
         player = GameObject.FindWithTag("Player");
-        playableLevels = GameObject.FindGameObjectsWithTag("PlayableLevel");
+        //playableLevels = GameObject.FindGameObjectsWithTag("PlayableLevel");
         progressGrass = GameObject.FindGameObjectsWithTag("ProgressGress")[0];
         InitalizeGame();
         g = gameObject;
@@ -63,7 +63,7 @@ public class WorldEvents : MonoBehaviour
         if(waveSpawned == false){
             for(int i = 0; i < enemyLimits[currentWave]; i++){
                 Vector3 pos = playableLevels[AssignedIsland].transform.position;
-                float radius = islandWGD[AssignedIsland].x / 2; //+ islandWGD[AssignedIsland].z)  / 2) / 2;
+                float radius = islandWGD[AssignedIsland].x / 2 - 1; //+ islandWGD[AssignedIsland].z)  / 2) / 2;
                 //float radius = 1;
                 float angle = (Random.Range(0,Mathf.PI));
                 float x = Mathf.Cos(angle)*radius;
