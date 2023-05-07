@@ -20,13 +20,15 @@ public class RatMove : MonoBehaviour
 
     public int health = 20;
     public GameObject healthBar;
+    private WorldEvents world;
 
     // Start is called before the first frame update
     void Start()
     {
-       turn = wheelTurnSpeed;
-       player = GameObject.FindWithTag("Player");
-       enemyObj = this.gameObject;
+        world = GameObject.Find("Ground").GetComponent<WorldEvents>();
+        turn = wheelTurnSpeed;
+        player = GameObject.FindWithTag("Player");
+        enemyObj = this.gameObject;
       // healthBar = GameObject.Find("Healthbar");
     }
 
@@ -76,6 +78,7 @@ public class RatMove : MonoBehaviour
         if(other.gameObject.tag == "Kunai"){
             this.health -= 5;
             if(this.health <= 0){
+                world.slainEnemies ++;
                 Destroy(enemyObj);
             }
             this.healthBar.GetComponent<Slider>().value = this.health;

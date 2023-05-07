@@ -1,5 +1,5 @@
 using UnityEngine;
-
+using static System.Math;
 public class WorldEvents : MonoBehaviour
 {
     GameObject g;
@@ -22,6 +22,7 @@ public class WorldEvents : MonoBehaviour
     Vector3[] islandWGD = new Vector3[4];
     int AssignedIsland;
     int oldAssigned = 0;
+    int slainOnIsland = 0;
 
     void Start(){
         Islands[0] = GameObject.Find("0");
@@ -39,7 +40,6 @@ public class WorldEvents : MonoBehaviour
         progressGrass = GameObject.FindGameObjectsWithTag("ProgressGress")[0];
         InitalizeGame();
         g = gameObject;
-        int counter = 0;
     }
 
     
@@ -53,7 +53,7 @@ public class WorldEvents : MonoBehaviour
             counter ++;
         }
         for (int i = 0; i < 4; i++){
-            progressGrassArray[i] = Instantiate(progressGrass,playableLevels[i].transform.position,Quaternion.identity);
+            progressGrassArray[i] = Instantiate(progressGrass, playableLevels[i].transform.position ,Quaternion.identity);
         }
     }
 
@@ -66,8 +66,7 @@ public class WorldEvents : MonoBehaviour
                 float angle = (Random.Range(0,Mathf.PI));
                 float x = Mathf.Cos(angle)*radius;
                 float y = Mathf.Sin(angle)*radius;
-                
-                GameObject enemy = Instantiate(rat,pos + new Vector3(x, 0, y) ,Quaternion.identity);
+                GameObject enemy = Instantiate(rat,pos + new Vector3(x, 1, y) ,Quaternion.identity);
                 enemy.tag = "Enemy";
             }
             waveSpawned = true;
@@ -76,15 +75,21 @@ public class WorldEvents : MonoBehaviour
         if(AssignedIsland != oldAssigned){
             oldAssigned = AssignedIsland;
             player.transform.position = playableLevels[AssignedIsland].transform.position;
+            slainOnIsland = 0;
         }
 
         if(slainEnemies > oldSlainEnemies){
-            Debug.Log(slainEnemies);
-            Debug.Log(oldSlainEnemies);
             oldSlainEnemies ++;
-            scaleEnemies ++;
-            //for(int i = 0; i <= 3 )
-            progressGrassArray[AssignedIsland].gameObject.transform.localScale = new Vector3(scaleEnemies,0,scaleEnemies);
+            int totOnIsland = 0;
+            foreach (int enemiesSpawn in enemyLimits){
+                totOnIsland += enemiesSpawn;
+            }
+            slainOnIsland ++;
+            Debug.Log(slainOnIsland);
+            float radiuss = islandWGD[AssignedIsland].x / 2;
+            int x = (int)((((slainOnIsland/totOnIsland) * radiuss) + 1) *1.9f);
+            Debug.Log(x);
+            progressGrassArray[AssignedIsland].gameObject.transform.localScale = new Vector3(x,0.001f,x);
         }
             
         if(GameObject.FindGameObjectsWithTag("Enemy").Length == 0){
