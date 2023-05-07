@@ -44,7 +44,7 @@ public class WorldEvents : MonoBehaviour
 
     
     void InitalizeGame(){
-        int AssignedIsland = 0;//Random.Range(0,3); 
+        int AssignedIsland = 0;
         player.transform.position = playableLevels[AssignedIsland].transform.position;
         int counter = 0;
         foreach(GameObject mg in Islands){
@@ -58,17 +58,15 @@ public class WorldEvents : MonoBehaviour
     }
 
     void FixedUpdate() {
-       // int spawn = Random.Range(1,100);
         
         if(waveSpawned == false){
             for(int i = 0; i < enemyLimits[currentWave]; i++){
                 Vector3 pos = playableLevels[AssignedIsland].transform.position;
-                float radius = islandWGD[AssignedIsland].x / 2 - 2; //+ islandWGD[AssignedIsland].z)  / 2) / 2;
-                //float radius = 1;
+                float radius = islandWGD[AssignedIsland].x / 2 - 2;
                 float angle = (Random.Range(0,Mathf.PI));
                 float x = Mathf.Cos(angle)*radius;
                 float y = Mathf.Sin(angle)*radius;
-                //float z = Random.Range(0,render.bounds.size.z);
+                
                 GameObject enemy = Instantiate(rat,pos + new Vector3(x, 0, y) ,Quaternion.identity);
                 enemy.tag = "Enemy";
             }
@@ -85,6 +83,7 @@ public class WorldEvents : MonoBehaviour
             Debug.Log(oldSlainEnemies);
             oldSlainEnemies ++;
             scaleEnemies ++;
+            //for(int i = 0; i <= 3 )
             progressGrassArray[AssignedIsland].gameObject.transform.localScale = new Vector3(scaleEnemies,0,scaleEnemies);
         }
             
@@ -95,7 +94,9 @@ public class WorldEvents : MonoBehaviour
                 clearedIsland[AssignedIsland] = true;
                 AssignedIsland ++;
             }
-            currentWave++;
+            else{
+                currentWave++;
+            }
             slainEnemies = 0;
             oldSlainEnemies = 0;
             waveSpawned = false;
