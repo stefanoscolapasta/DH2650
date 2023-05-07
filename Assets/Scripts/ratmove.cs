@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class RatMove : MonoBehaviour
 {
-    public GameObject enemyObj;
+    GameObject enemyObj;
     public GameObject[] wheels;
     public float speed;
     public float wheelTurnSpeed = 1.0f;
@@ -26,6 +26,7 @@ public class RatMove : MonoBehaviour
     {
        turn = wheelTurnSpeed;
        player = GameObject.FindWithTag("Player");
+       enemyObj = this.gameObject;
       // healthBar = GameObject.Find("Healthbar");
     }
 
@@ -48,7 +49,7 @@ public class RatMove : MonoBehaviour
 
     void move(float speed){
         enemyObj.transform.position += enemyObj.transform.forward * speed * Time.deltaTime;
-        
+        Debug.Log("SPEEEED" + speed);
         if(attacking){
 
             enemyObj.transform.position += Vector3.up * Time.deltaTime;
@@ -70,13 +71,13 @@ public class RatMove : MonoBehaviour
                  other.gameObject.GetComponent<StarterAssets.Interface>().health -= 10;
                  attackTimeout = 1.0f;
             }
-           
-
         }
+        
         if(other.gameObject.tag == "Kunai"){
             this.health -= 5;
             this.healthBar.GetComponent<Slider>().value = this.health;
             Debug.Log(this.gameObject.name + " got hit");
+            Destroy(other.gameObject);
         }
     }
 

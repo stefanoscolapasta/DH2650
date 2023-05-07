@@ -337,10 +337,9 @@ GameObject:
   - component: {fileID: 6564083690315051183}
   - component: {fileID: 6564083690315051181}
   - component: {fileID: 1395607775}
-  - component: {fileID: -6928698101245815295}
   m_Layer: 0
   m_Name: Rat_v2
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -388,16 +387,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 6330133114540838386}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8acedd52325922842ae4a348bae0e98a, type: 3}
+  m_Script: {fileID: 11500000, guid: 7d5b90ce2a8ca6048be6465d47186aaa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyObj: {fileID: 6330133114540838386}
   wheels:
   - {fileID: 2480028835002435280}
   - {fileID: 2480028834182987331}
   speed: 2.5
   wheelTurnSpeed: 50
   tiltAng: -15
+  health: 10
+  healthBar: {fileID: 4945723178040285633}
 --- !u!135 &1395607775
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -411,23 +411,6 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.05
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &-6928698101245815295
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6330133114540838386}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7d5b90ce2a8ca6048be6465d47186aaa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enemyObj: {fileID: 0}
-  wheels: []
-  speed: 1
-  wheelTurnSpeed: 1
-  tiltAng: 15
 --- !u!1 &6529645400122238972
 GameObject:
   m_ObjectHideFlags: 0

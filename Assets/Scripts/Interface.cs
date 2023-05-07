@@ -103,7 +103,7 @@ namespace StarterAssets
                 //if(otherGameObject.name == "Rat"){
                 health -= 1;
                 Debug.Log(health); 
-                otherGameObject.GetComponent<Enemy>().setAtkCD(3f);
+              //  otherGameObject.GetComponent<Enemy>().setAtkCD(3f);
                 }
                 
                 //}
