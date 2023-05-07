@@ -669,7 +669,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ced3f77738cf27a49aa159091f46442c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rat: {fileID: 1627716168}
+  rat: {fileID: 6330133114540838386, guid: 03ba79b3779a7aa478cb61d537b55084, type: 3}
   enemyLimits: 010000000200000003000000
   currentWave: 0
   slainEnemies: 0
@@ -1647,25 +1647,6 @@ Transform:
   m_Father: {fileID: 2114283753834967213}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1096791701 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1806067930585584611, guid: 4b5944d511f937243993ed4ab1e2f102,
-    type: 3}
-  m_PrefabInstance: {fileID: 1267665491}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1096791703
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1096791701}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 55ebfe16fd4e87e488871d4469f99b21, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enemy: {fileID: 6330133114540838386, guid: 03ba79b3779a7aa478cb61d537b55084, type: 3}
 --- !u!1 &1114095395 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8616685848737228372, guid: c5efc39a8aaf6e64ea40e9ad573e9b47,
