@@ -33,27 +33,19 @@ public class RatMove : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        
-
         turn += wheelTurnSpeed * Time.deltaTime;
         enemyObj.transform.LookAt(player.transform.position);
        
         //enemyObj.transform.position += transform.forward * speed;
-        if(speed != 0.0f){
-            move(speed);
-        }
-        else{
-            move(speed);
-        }   
+        move(speed);
     }
 
     void move(float speed){
         enemyObj.transform.position += enemyObj.transform.forward * speed * Time.deltaTime;
         Debug.Log("SPEEEED" + speed);
         if(attacking){
-
             enemyObj.transform.position += Vector3.up * Time.deltaTime;
         }else{
             for(int i = 0; i < wheels.Length; i++){
@@ -76,6 +68,7 @@ public class RatMove : MonoBehaviour
         }
         
         if(other.gameObject.tag == "Kunai"){
+            Debug.Log(this.health);
             this.health -= 5;
             if(this.health <= 0){
                 world.slainEnemies ++;

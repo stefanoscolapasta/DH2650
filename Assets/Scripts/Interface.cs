@@ -25,6 +25,7 @@ namespace StarterAssets
         private Slider playerSlider;
         public TextMeshProUGUI text;
         private WorldEvents world; 
+        public TextMeshProUGUI defeat;
         
         //private int currentWave = 0;
         // Start is called before the first frame update
@@ -36,6 +37,7 @@ namespace StarterAssets
             playerSlider = GameObject.FindGameObjectWithTag("PlayerSlider").GetComponent<Slider>();
             playerInput = GetComponent<StarterAssetsInputs>();
             shootingPoint = GetComponent<Rigidbody>().transform;
+            defeat.enabled = false;
         }
 
         // Update is called once per frame
@@ -98,18 +100,20 @@ namespace StarterAssets
         {
             GameObject otherGameObject = other.gameObject;
             if(otherGameObject.tag == "Enemy"){
-                if(otherGameObject.GetComponent<Enemy>().getAtkCD() <= 0f){
+                //if(otherGameObject.GetComponent<Enemy>().getAtkCD() <= 0f){
                     Debug.Log("Tag works");
                 //if(otherGameObject.name == "Rat"){
                 health -= 1;
                 Debug.Log(health); 
               //  otherGameObject.GetComponent<Enemy>().setAtkCD(3f);
-                }
+                //}
                 
                 //}
             }
             if(health <= 0){
-                Destroy(self);
+                abilities[0] = false;
+                defeat.enabled = true;
+                //Destroy(self);
             }
         }
 

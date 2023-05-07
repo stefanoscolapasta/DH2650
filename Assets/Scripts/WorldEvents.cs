@@ -60,7 +60,7 @@ public class WorldEvents : MonoBehaviour
     void FixedUpdate() {
         
         if(waveSpawned == false){
-            for(int i = 0; i < enemyLimits[currentWave]; i++){
+            for(int i = 0; i < enemyLimits[currentWave]*(AssignedIsland+1); i++){
                 Vector3 pos = playableLevels[AssignedIsland].transform.position;
                 float radius = islandWGD[AssignedIsland].x / 2 - 2;
                 float angle = (Random.Range(0,Mathf.PI));
