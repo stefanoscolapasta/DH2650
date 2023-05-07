@@ -18,7 +18,7 @@ public class RatMove : MonoBehaviour
     
     float attackTimeout = 1.0f;
 
-    public int health = 10;
+    public int health = 20;
     public GameObject healthBar;
 
     // Start is called before the first frame update
@@ -75,12 +75,15 @@ public class RatMove : MonoBehaviour
         
         if(other.gameObject.tag == "Kunai"){
             this.health -= 5;
+            if(this.health <= 0){
+                Destroy(enemyObj);
+            }
             this.healthBar.GetComponent<Slider>().value = this.health;
             Debug.Log(this.gameObject.name + " got hit");
             Destroy(other.gameObject);
         }
     }
-
+    
     void OnTriggerExit(Collider other){
        // Debug.Log(other.gameObject.tag + " Exit ");
         if(other.gameObject.tag == "Player"){
@@ -88,4 +91,5 @@ public class RatMove : MonoBehaviour
             attacking = false;
         }
     }
+    
 }

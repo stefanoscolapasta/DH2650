@@ -2078,7 +2078,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 9b1928a2184f5bc429140bb26b4e5497,
         type: 3}
       propertyPath: m_Name
-      value: Icosphere.107
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9b1928a2184f5bc429140bb26b4e5497, type: 3}
@@ -5058,7 +5058,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 535b6039aad340a4aaf80f051f2ee93e,
         type: 3}
       propertyPath: m_Name
-      value: Icosphere.105
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 535b6039aad340a4aaf80f051f2ee93e, type: 3}
@@ -5888,7 +5888,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 866fb017c3dff3045be5169101876548,
         type: 3}
       propertyPath: m_Name
-      value: Icosphere.106
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 866fb017c3dff3045be5169101876548, type: 3}
@@ -6418,7 +6418,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: d76743135bfe638439f915c7f5124deb,
         type: 3}
       propertyPath: m_Name
-      value: Icosphere.108
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d76743135bfe638439f915c7f5124deb, type: 3}
