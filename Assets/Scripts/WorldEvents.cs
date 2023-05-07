@@ -60,7 +60,7 @@ public class WorldEvents : MonoBehaviour
     void FixedUpdate() {
         
         if(waveSpawned == false){
-            for(int i = 0; i < enemyLimits[currentWave]*(AssignedIsland+1); i++){
+            for(int i = 0; i < enemyLimits[currentWave]; i++){
                 Vector3 pos = playableLevels[AssignedIsland].transform.position;
                 float radius = islandWGD[AssignedIsland].x / 2 - 2;
                 float angle = (Random.Range(0,Mathf.PI));
@@ -87,9 +87,8 @@ public class WorldEvents : MonoBehaviour
             slainOnIsland ++;
             Debug.Log(slainOnIsland);
             float radiuss = islandWGD[AssignedIsland].x / 2;
-            int x = (int)((((slainOnIsland/totOnIsland) * radiuss) + 1) *1.9f);
-            Debug.Log(x);
-            progressGrassArray[AssignedIsland].gameObject.transform.localScale = new Vector3(x,0.001f,x);
+            float x = (((((float) slainOnIsland/ (float) totOnIsland) * radiuss) + 1) *1.9f);
+            progressGrassArray[AssignedIsland].gameObject.transform.localScale = new Vector3(x,0.00001f,x);
         }
             
         if(GameObject.FindGameObjectsWithTag("Enemy").Length == 0){
