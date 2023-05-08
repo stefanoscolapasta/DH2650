@@ -23,7 +23,7 @@ public class BossMove : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        world = GameObject.Find("Ground").GetComponent<WorldEvents>();
+        world = GameObject.Find("level").GetComponent<WorldEvents>();
         player = GameObject.FindWithTag("Player");
         enemyObj = this.gameObject;
       // healthBar = GameObject.Find("Healthbar");

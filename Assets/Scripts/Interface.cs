@@ -33,7 +33,7 @@ namespace StarterAssets
         void Start()
         {
             //text = GameObject.FindWithTag("");
-            world = GameObject.Find("Ground").GetComponent<WorldEvents>();
+            world = GameObject.Find("level").GetComponent<WorldEvents>();
             self = GameObject.FindGameObjectsWithTag("Player")[0];
             playerSlider = GameObject.FindGameObjectWithTag("PlayerSlider").GetComponent<Slider>();
             playerInput = GetComponent<StarterAssetsInputs>();
