@@ -27,6 +27,7 @@ namespace StarterAssets
         private WorldEvents world; 
         public TextMeshProUGUI defeat;
         
+        public 
         //private int currentWave = 0;
         // Start is called before the first frame update
         void Start()
@@ -118,14 +119,18 @@ namespace StarterAssets
         }
 
         void leafKunai(){
-            
-            GameObject leaf = UnityEngine.Object.Instantiate(leafKunaii,shootingPoint.position + self.transform.forward*0.5f + pos, Quaternion.identity);
+            GameObject leaf = UnityEngine.Object.Instantiate(leafKunaii,shootingPoint.position + self.transform.forward * 0.5f + pos, Quaternion.identity);
             Vector3 rototot = self.transform.forward;
-            leaf.transform.Rotate(90f + rototot.x, 0f+ rototot.y, 0f+ rototot.z, Space.Self);
-            leaf.GetComponent<Rigidbody>().AddForce(transform.forward*10);
+            GameObject cam = GameObject.FindGameObjectsWithTag("MainCamera")[0];
+            //leaf.transform.Rotate(90f + rototot.x, 0f+ rototot.y, 0f+ rototot.z, Space.Self);
+            //leaf.GetComponent<Rigidbody>().AddForce(transform.forward*10);
+            Debug.Log(cam.transform.rotation.eulerAngles);
+            leaf.GetComponent<Rigidbody>().AddForce(cam.transform.forward *10);
             Destroy(leaf, 2);
             //Debug.Log(leaf.GetComponent<Rigidbody>());
             Debug.Log("shooting");
+
+
         }
 
         void AoeSmellyCloud(){
