@@ -80,7 +80,7 @@ namespace StarterAssets
                playerInput.ability3 = false; 
             }
 
-            text.text = world.slainEnemies + "/" + world.enemyLimits[world.currentWave];
+            text.text = world.slainEnemies + "/" + world.enemyLimits[world.getCurrentIsland(), world.currentWave];
         }
         //pick-up
         void OnTriggerEnter(Collider other)

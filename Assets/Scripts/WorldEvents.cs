@@ -4,7 +4,10 @@ public class WorldEvents : MonoBehaviour
 {
     GameObject g;
     public GameObject rat;
-    public int[] enemyLimits = {1,2,3};
+    public GameObject boss;
+    //public int[,] enemyLimits = new int[3,3]{{1,2,2},{2,3,5},{3,5,7}};
+    public int[,] enemyLimits = new int[3,3]{{1,1,1},{1,1,1},{1,1,1}}; // FOR TESTING
+    public int[] totalEnemies = {5,10,15};
     int spawnedEnemies = 0;
     MeshRenderer render;
     public int currentWave = 0;
@@ -23,6 +26,7 @@ public class WorldEvents : MonoBehaviour
     int AssignedIsland;
     int oldAssigned = 0;
     int slainOnIsland = 0;
+    bool bossSpawned = false;
 
     void Start(){
         Islands[0] = GameObject.Find("0");
@@ -59,8 +63,10 @@ public class WorldEvents : MonoBehaviour
 
     void FixedUpdate() {
         
-        if(waveSpawned == false){
-            for(int i = 0; i < enemyLimits[currentWave]; i++){
+        if(waveSpawned == false && bossSpawned == false){
+            Debug.Log("isla " + AssignedIsland);
+            Debug.Log("wave " + currentWave);
+            for(int i = 0; i < enemyLimits[AssignedIsland,currentWave]; i++){
                 Vector3 pos = playableLevels[AssignedIsland].transform.position;
                 float radius = islandWGD[AssignedIsland].x / 2 - 2;
                 float angle = (Random.Range(0,Mathf.PI));
@@ -80,23 +86,29 @@ public class WorldEvents : MonoBehaviour
 
         if(slainEnemies > oldSlainEnemies){
             oldSlainEnemies ++;
-            int totOnIsland = 0;
-            foreach (int enemiesSpawn in enemyLimits){
-                totOnIsland += enemiesSpawn;
-            }
+            //int totOnIsland = 0;
+           // foreach (int enemiesSpawn in enemyLimits){
+           //     totOnIsland += enemiesSpawn;
+            //}
             slainOnIsland ++;
             Debug.Log(slainOnIsland);
             float radiuss = islandWGD[AssignedIsland].x / 2;
-            float x = (((((float) slainOnIsland/ (float) totOnIsland) * radiuss) + 1) *1.9f);
+            float x = (((((float) slainOnIsland/ (float) totalEnemies[AssignedIsland]) * radiuss) + 1) *1.9f);
             progressGrassArray[AssignedIsland].gameObject.transform.localScale = new Vector3(x,0.00001f,x);
         }
             
         if(GameObject.FindGameObjectsWithTag("Enemy").Length == 0){
             Debug.Log("Wave " + currentWave + " done");
-            if(currentWave >= enemyLimits.Length - 1){
-                currentWave = 0;
-                clearedIsland[AssignedIsland] = true;
-                AssignedIsland ++;
+            if(currentWave >= 2){
+                if(AssignedIsland < 2){
+                    currentWave = 0;
+                    clearedIsland[AssignedIsland] = true;
+                    AssignedIsland ++;
+                }else{
+                    bossSpawned = true;
+                    summonBoss();
+                }
+                
             }
             else{
                 currentWave++;
@@ -105,6 +117,17 @@ public class WorldEvents : MonoBehaviour
             oldSlainEnemies = 0;
             waveSpawned = false;
         }
+    }
+    public int getCurrentIsland(){
+        return this.AssignedIsland;
+    }
+    
+    private void summonBoss(){
+        Vector3 pos = playableLevels[AssignedIsland].transform.position;
 
+        GameObject enemy = Instantiate(boss,pos ,Quaternion.identity);
+        enemy.tag = "Enemy";
+        enemy.transform.localScale *= 40;
+        //enemy.GetComponent<RatMove>().health = 200;
     }
 }
