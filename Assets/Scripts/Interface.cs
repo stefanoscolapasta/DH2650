@@ -26,6 +26,7 @@ namespace StarterAssets
         public TextMeshProUGUI text;
         private WorldEvents world; 
         public TextMeshProUGUI defeat;
+        private float bossAtkTimeout = 0f;
         
         public 
         //private int currentWave = 0;
@@ -82,6 +83,7 @@ namespace StarterAssets
             }
 
             text.text = world.slainEnemies + "/" + world.enemyLimits[world.getCurrentIsland(), world.currentWave];
+            bossAtkTimeout -= Time.deltaTime;
         }
         //pick-up
         void OnTriggerEnter(Collider other)
@@ -100,17 +102,22 @@ namespace StarterAssets
         void OnTriggerStay(Collider other)
         {
             GameObject otherGameObject = other.gameObject;
-            if(otherGameObject.tag == "Enemy"){
-                //if(otherGameObject.GetComponent<Enemy>().getAtkCD() <= 0f){
-                    Debug.Log("Tag works");
-                //if(otherGameObject.name == "Rat"){
-                health -= 1;
-                Debug.Log(health); 
-              //  otherGameObject.GetComponent<Enemy>().setAtkCD(3f);
-                //}
-                
-                //}
+          /* if(otherGameObject.tag == "Enemy"){
+                health -= 5;
+            }*/
+            //BOSS ATTACKS
+            if(bossAtkTimeout <= 0){
+                if(otherGameObject.tag == "BossAtk"){
+                    health -= 10;
+                    Destroy(otherGameObject);
+                    bossAtkTimeout = 0.1f;
+                }
+                if(otherGameObject.tag == "Boss"){
+                    health -= 20;
+                    bossAtkTimeout = 0.1f;
+                }
             }
+            
             if(health <= 0){
                 abilities[0] = false;
                 defeat.enabled = true;
@@ -124,13 +131,9 @@ namespace StarterAssets
             GameObject cam = GameObject.FindGameObjectsWithTag("MainCamera")[0];
             //leaf.transform.Rotate(90f + rototot.x, 0f+ rototot.y, 0f+ rototot.z, Space.Self);
             //leaf.GetComponent<Rigidbody>().AddForce(transform.forward*10);
-            Debug.Log(cam.transform.rotation.eulerAngles);
+           // Debug.Log(cam.transform.rotation.eulerAngles);
             leaf.GetComponent<Rigidbody>().AddForce(cam.transform.forward *10);
             Destroy(leaf, 2);
-            //Debug.Log(leaf.GetComponent<Rigidbody>());
-            Debug.Log("shooting");
-
-
         }
 
         void AoeSmellyCloud(){

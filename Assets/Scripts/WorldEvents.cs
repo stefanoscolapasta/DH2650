@@ -5,9 +5,10 @@ public class WorldEvents : MonoBehaviour
     GameObject g;
     public GameObject rat;
     public GameObject boss;
-    //public int[,] enemyLimits = new int[3,3]{{1,2,2},{2,3,5},{3,5,7}};
-    public int[,] enemyLimits = new int[3,3]{{1,1,1},{1,1,1},{1,1,1}}; // FOR TESTING
-    public int[] totalEnemies = {3,3,3};
+    public int[,] enemyLimits = new int[3,3]{{1,2,2},{2,3,5},{3,5,7}};
+    //public int[,] enemyLimits = new int[3,3]{{1,1,1},{1,1,1},{1,1,1}}; // FOR TESTING
+   // public int[] totalEnemies = {3,3,3};
+    public int[] totalEnemies = {5,10,15};
     int spawnedEnemies = 0;
     MeshRenderer render;
     public int currentWave = 0;
@@ -75,6 +76,9 @@ public class WorldEvents : MonoBehaviour
         progressGrass = GameObject.FindGameObjectsWithTag("ProgressGress")[0];
         InitalizeGame();
         g = gameObject;
+
+        boss.SetActive(false);
+        boss.GetComponent<BossMove>().healthBar.SetActive(false);
     }
 
     
@@ -115,8 +119,6 @@ public class WorldEvents : MonoBehaviour
         }
 
         if(waveSpawned == false && bossSpawned == false){
-            Debug.Log("isla " + AssignedIsland);
-            Debug.Log("wave " + currentWave);
             for(int i = 0; i < enemyLimits[AssignedIsland,currentWave]; i++){
                 Vector3 pos = playableLevels[AssignedIsland].transform.position;
                 float radius = islandWGD[AssignedIsland].x / 2 - 2;
@@ -163,7 +165,7 @@ public class WorldEvents : MonoBehaviour
             vegIndex = (int) upperLimitOfVeg;
         }
             
-        if(GameObject.FindGameObjectsWithTag("Enemy").Length == 0){
+        if(GameObject.FindGameObjectsWithTag("Enemy").Length == 0 && !bossSpawned){
             Debug.Log("Wave " + currentWave + " done");
             if(currentWave >= 2){
                 if(AssignedIsland < 2){
@@ -192,8 +194,9 @@ public class WorldEvents : MonoBehaviour
         Vector3 pos = playableLevels[AssignedIsland].transform.position;
 
         GameObject enemy = Instantiate(boss,pos ,Quaternion.identity);
-        enemy.tag = "Enemy";
-        enemy.transform.localScale *= 40;
-        //enemy.GetComponent<RatMove>().health = 200;
+        enemy.SetActive(true);
+        enemy.tag = "Boss";
+        enemy.transform.localScale *= 4;
+        boss.GetComponent<BossMove>().healthBar.SetActive(true);
     }
 }

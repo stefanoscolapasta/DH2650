@@ -12,6 +12,9 @@ TagManager:
   - ProgressGress
   - PlayableLevel
   - LevelWGD
+  - Climbable
+  - Boss
+  - BossAtk
   layers:
   - Default
   - TransparentFX

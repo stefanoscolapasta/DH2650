@@ -396,7 +396,7 @@ MonoBehaviour:
   speed: 2.5
   wheelTurnSpeed: 50
   tiltAng: -15
-  health: 10
+  health: 20
   healthBar: {fileID: 4945723178040285633}
 --- !u!135 &1395607775
 SphereCollider:

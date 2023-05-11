@@ -16,7 +16,7 @@ public class RatMove : MonoBehaviour
 
     private GameObject player;
     
-    float attackTimeout = 1.0f;
+    float attackTimeout = 0.0f;
 
     public int health = 20;
     public GameObject healthBar;
@@ -29,7 +29,6 @@ public class RatMove : MonoBehaviour
         turn = wheelTurnSpeed;
         player = GameObject.FindWithTag("Player");
         enemyObj = this.gameObject;
-      // healthBar = GameObject.Find("Healthbar");
     }
 
     // Update is called once per frame
