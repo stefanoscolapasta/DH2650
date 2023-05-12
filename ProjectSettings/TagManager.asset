@@ -15,11 +15,12 @@ TagManager:
   - Climbable
   - Boss
   - BossAtk
+  - Plant
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Climbable
   - Water
   - UI
   - 
