@@ -172,7 +172,7 @@ public class WorldEvents : MonoBehaviour
         GameObject enemy = Instantiate(boss,pos ,Quaternion.identity);
         enemy.SetActive(true);
         enemy.tag = "Boss";
-        enemy.transform.localScale *= 4;
+        enemy.transform.localScale *= 40;
         boss.GetComponent<BossMove>().healthBar.SetActive(true);
     }
 
