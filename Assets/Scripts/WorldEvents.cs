@@ -194,6 +194,13 @@ public class WorldEvents : MonoBehaviour
             }
         }
 
+        GameObject[] hp = GameObject.FindGameObjectsWithTag("HealthItem");
+        if(hp != null){
+            foreach(GameObject h in hp){
+                Destroy(h);
+            }
+        }
+
         InitalizeGame();
         waveSpawned = false;
         slainEnemies = 0;
