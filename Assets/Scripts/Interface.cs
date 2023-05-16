@@ -130,28 +130,15 @@ namespace StarterAssets
         }
 
         void leafKunai(){
-            GameObject leaf = UnityEngine.Object.Instantiate(leafKunaii,shootingPoint.position + self.transform.forward * 0.5f + pos, Quaternion.identity);
+            GameObject cam = GameObject.FindGameObjectsWithTag("MainCamera")[0];
+            GameObject leaf = UnityEngine.Object.Instantiate(leafKunaii,cam.transform.position + self.transform.forward * 0.5f, Quaternion.identity);
             leaf.transform.Rotate(Quaternion.Euler(-90.0f,0, 0)*transform.forward);
             Vector3 rototot = self.transform.forward;
-            GameObject cam = GameObject.FindGameObjectsWithTag("MainCamera")[0];
+            
             //leaf.transform.Rotate(90f + rototot.x, 0f+ rototot.y, 0f+ rototot.z, Space.Self);
             //leaf.GetComponent<Rigidbody>().AddForce(transform.forward*10);
            // Debug.Log(cam.transform.rotation.eulerAngles);
             leaf.GetComponent<Rigidbody>().AddForce(cam.transform.forward *10);
-            
-            Ray ray = new Ray(self.transform.position, cam.transform.forward);
-            Debug.DrawRay(self.transform.position, cam.transform.forward* 10, Color.yellow);
-            if (Physics.Raycast(ray, out RaycastHit hit)) {
-                if(hit.transform.gameObject.layer == LayerMask.NameToLayer("Climbable")){
-                    Debug.Log("success");
-                    Vegetation.Controller.Instance.CreatePlant(
-                    0, 0.8f, true, hit.point,
-                    
-                    Quaternion.FromToRotation(Vector3.up, hit.normal).eulerAngles,
-                    true);
-                }
-            }
-            
             
             
             Destroy(leaf, 2);

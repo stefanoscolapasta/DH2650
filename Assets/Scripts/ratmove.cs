@@ -74,6 +74,16 @@ public class RatMove : MonoBehaviour
                 if(itemRoll <= 3){
                     Instantiate(dropItem,enemyObj.transform.position,Quaternion.identity);
                 }
+                Ray ray = new Ray(enemyObj.transform.position, Vector3.down);
+                Debug.DrawRay(enemyObj.transform.position, Vector3.down * 1, Color.yellow);
+                if (Physics.Raycast(ray, out RaycastHit hit)) {
+                    Debug.Log("success");
+                    Vegetation.Controller.Instance.CreatePlant(
+                    0, 0.8f, true, hit.point,
+                    Quaternion.FromToRotation(Vector3.up, hit.normal).eulerAngles,
+                    true);
+                    
+                }
                 Destroy(enemyObj);
             }
             this.healthBar.GetComponent<Slider>().value = this.health;

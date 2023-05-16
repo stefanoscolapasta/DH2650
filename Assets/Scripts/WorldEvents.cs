@@ -13,9 +13,7 @@ public class WorldEvents : MonoBehaviour
     public int currentWave = 0;
     bool waveSpawned = false;
     public int slainEnemies = 0;
-    private int oldSlainEnemies = 0;
-    GameObject progressGrass;
-    GameObject[] progressGrassArray = new GameObject[4];
+    private int oldSlainEnemies = 0;    
     GameObject[] playableLevels = new GameObject[4];
     MeshRenderer[] levelRenders = new MeshRenderer[4];
     GameObject player;
@@ -51,28 +49,12 @@ public class WorldEvents : MonoBehaviour
         IslandVeg[1] = GameObject.Find("Island1veg");
         IslandVeg[2] = GameObject.Find("Island2veg");
 
-        /*int counter = 0;
-        foreach (var vegG in IslandVeg)
-        {
-            arrayOfVegChild[counter] = new GameObject[vegG.transform.childCount];
-            activeVeg[counter] = new bool[vegG.transform.childCount];
-            vegScaler[counter] = new float[vegG.transform.childCount];
-            for (int i = 0; i < vegG.transform.childCount; i++){
-                vegScaler[counter][i] = 0.000001f;
-                arrayOfVegChild[counter][i] = vegG.transform.GetChild(i).gameObject;
-                arrayOfVegChild[counter][i].transform.localScale = new Vector3(vegScaler[counter][i],vegScaler[counter][i],vegScaler[counter][i]);
-                arrayOfVegChild[counter][i].active = false;
-                activeVeg[counter][i] = false; //prolly unnecessary but wanna make sure it works as intended.
-            }
-            counter ++;
-        }*/
         initVegetation();
 
         //------------------------------------------------
 
         player = GameObject.FindWithTag("Player");
         //playableLevels = GameObject.FindGameObjectsWithTag("PlayableLevel");
-        progressGrass = GameObject.FindGameObjectsWithTag("ProgressGress")[0];
         InitalizeGame();
         g = gameObject;
 
@@ -90,9 +72,6 @@ public class WorldEvents : MonoBehaviour
             levelRenders[counter] = mg.GetComponent<MeshRenderer>(); 
             islandWGD[counter] = levelRenders[counter].bounds.size;
             counter ++;
-        }
-        for (int i = 0; i < 4; i++){
-            progressGrassArray[i] = Instantiate(progressGrass, playableLevels[i].transform.position ,Quaternion.identity);
         }
     }
 
@@ -147,9 +126,6 @@ public class WorldEvents : MonoBehaviour
             slainOnIsland ++;
             Debug.Log(slainOnIsland);
             float ratioOfKilledEnemies = (float) slainOnIsland/ (float) totalEnemies[AssignedIsland];
-            float radiuss = islandWGD[AssignedIsland].x / 2;
-            float x = (((ratioOfKilledEnemies * radiuss) + 1) *1.9f);
-            progressGrassArray[AssignedIsland].gameObject.transform.localScale = new Vector3(x,0.00001f,x);
             //Set veg on island to start animate()
             float upperLimitOfVeg = (float) arrayOfVegChild[AssignedIsland].Length * (float) ratioOfKilledEnemies;
             for(int i = vegIndex ; i <= upperLimitOfVeg; i ++){
@@ -209,9 +185,6 @@ public class WorldEvents : MonoBehaviour
             foreach(GameObject g in enemies){
                 Destroy(g);
             }
-        }
-        for(int i = 0; i < 3; i++){
-            Destroy(progressGrassArray[i]);
         }
         InitalizeGame();
         waveSpawned = false;
