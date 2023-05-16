@@ -213,6 +213,14 @@ public class WorldEvents : MonoBehaviour
         for(int i = 0; i < 3; i++){
             Destroy(progressGrassArray[i]);
         }
+
+        GameObject[] plants = GameObject.FindGameObjectsWithTag("Plant");
+        if(plants != null){
+            foreach(GameObject p in plants){
+                Destroy(p);
+            }
+        }
+
         InitalizeGame();
         waveSpawned = false;
         slainEnemies = 0;
