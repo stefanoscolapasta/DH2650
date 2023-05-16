@@ -80,7 +80,8 @@ public class RatMove : MonoBehaviour
                 world.slainEnemies ++;
                 int itemRoll = Random.Range(0,10);
                 if(itemRoll <= 3){
-                    Instantiate(dropItem,enemyObj.transform.position,Quaternion.identity);
+                    GameObject drop = Instantiate(dropItem,enemyObj.transform.position,Quaternion.identity);
+                    drop.transform.localScale /= 4;
                 }
                 Ray ray = new Ray(enemyObj.transform.position, Vector3.down);
                 Debug.DrawRay(enemyObj.transform.position, Vector3.down * 1, Color.yellow);

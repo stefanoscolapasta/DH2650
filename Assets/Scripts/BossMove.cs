@@ -8,7 +8,7 @@ public class BossMove : MonoBehaviour
     GameObject enemyObj;
     public GameObject weapon;
 
-    public float speed;
+    public float speed = 2;
 
     private GameObject player;
     
@@ -36,6 +36,7 @@ public class BossMove : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        enemyObj.transform.position += enemyObj.transform.forward * speed * Time.deltaTime;
         this.healthBar.GetComponent<Slider>().value = this.health;
         attackTimeout -= Time.deltaTime;
         changeAttackTimer -= Time.deltaTime;
@@ -48,6 +49,7 @@ public class BossMove : MonoBehaviour
 
         if(currentAttack == 0){ //Follow player
             enemyObj.transform.LookAt(player.transform.position);
+            
             if(attackTimeout <= 0){
                 for(int i = 0; i < 3; i++){
                     GameObject kunai = Instantiate(weapon, enemyObj.transform.position,Quaternion.identity);
