@@ -402,6 +402,7 @@ namespace Vegetation
             mesh.RecalculateNormals();
             transform.GetChild(1).GetComponent<MeshCollider>().sharedMesh = mesh;
             transform.GetChild(1).GetComponent<MeshCollider>().enabled = true;
+            transform.GetChild(1).gameObject.tag = "Plant";
 
         }
 
@@ -456,6 +457,8 @@ namespace Vegetation
                 }
             }
             // create meshes for each foliage
+            //Eget fippel
+            MeshCollider meshCollider = gameObject.AddComponent<MeshCollider>();
             for (int i = 0; i < instances.Length; i++)
             {
                 //SetQuad();
@@ -484,7 +487,16 @@ namespace Vegetation
 
                 parent.GetComponent<Renderer>().enabled = false;
                 parent.GetComponent<MeshFilter>().mesh = new Mesh();
+                
                 parent.GetComponent<MeshFilter>().mesh.CombineMeshes(combine);
+
+                //Eget fippel
+                meshCollider.sharedMesh = parent.GetComponent<MeshFilter>().mesh;
+                meshCollider.convex = true;
+                transform.GetChild(1).gameObject.tag = "Plant";
+                //parent.gameObject.tag = "Plant";
+                //meshCollider.isTrigger = true;
+
                 parent.localPosition = -startPos;
                 for (int k = 0; k < instances[i].Count; k++)
                 {
@@ -560,7 +572,7 @@ namespace Vegetation
             
         }
 
-        public static string MeshToString(MeshFilter mf)
+        public string MeshToString(MeshFilter mf)
         {
             Mesh m = mf.mesh;
             Material[] mats = mf.GetComponent<Renderer>().sharedMaterials;
