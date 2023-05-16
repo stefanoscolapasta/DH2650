@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using Vegetation;
 #if ENABLE_INPUT_SYSTEM && STARTER_ASSETS_PACKAGES_CHECKED
 using UnityEngine.InputSystem;
 #endif
@@ -136,7 +137,23 @@ namespace StarterAssets
             //leaf.transform.Rotate(90f + rototot.x, 0f+ rototot.y, 0f+ rototot.z, Space.Self);
             //leaf.GetComponent<Rigidbody>().AddForce(transform.forward*10);
            // Debug.Log(cam.transform.rotation.eulerAngles);
-            leaf.GetComponent<Rigidbody>().AddForce(cam.transform.forward *5);
+            leaf.GetComponent<Rigidbody>().AddForce(cam.transform.forward *10);
+            
+            Ray ray = new Ray(self.transform.position, cam.transform.forward);
+            Debug.DrawRay(self.transform.position, cam.transform.forward* 10, Color.yellow);
+            if (Physics.Raycast(ray, out RaycastHit hit)) {
+                if(hit.transform.gameObject.layer == LayerMask.NameToLayer("Climbable")){
+                    Debug.Log("success");
+                    Vegetation.Controller.Instance.CreatePlant(
+                    0, 0.8f, true, hit.point,
+                    
+                    Quaternion.FromToRotation(Vector3.up, hit.normal).eulerAngles,
+                    true);
+                }
+            }
+            
+            
+            
             Destroy(leaf, 2);
         }
 

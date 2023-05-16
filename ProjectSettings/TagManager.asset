@@ -16,11 +16,12 @@ TagManager:
   - Boss
   - BossAtk
   - HealthItem
+  - Plant
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Climbable
   - Water
   - UI
   - 
