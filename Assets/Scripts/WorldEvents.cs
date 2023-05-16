@@ -186,6 +186,14 @@ public class WorldEvents : MonoBehaviour
                 Destroy(g);
             }
         }
+
+        GameObject[] plants = GameObject.FindGameObjectsWithTag("Plant");
+        if(plants != null){
+            foreach(GameObject p in plants){
+                Destroy(p);
+            }
+        }
+
         InitalizeGame();
         waveSpawned = false;
         slainEnemies = 0;
