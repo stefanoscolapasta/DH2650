@@ -10,8 +10,6 @@ public class BossMove : MonoBehaviour
 
     public float speed;
 
-    private bool attacking = false;
-
     private GameObject player;
     
     float attackTimeout = 0.3f;
@@ -24,6 +22,7 @@ public class BossMove : MonoBehaviour
   //  public GameObject healthBar;
     private WorldEvents world;
     public GameObject healthBar;
+    public GameObject motherSeed;
 
     // Start is called before the first frame update
     void Start()
@@ -73,16 +72,18 @@ public class BossMove : MonoBehaviour
                     attackTimeout = 0.2f;
                     Destroy(kunai, 3);
             }
+        }    
+        //enemyObj.transform.position += transform.forward * speed;
+        if(health <= 0){
+            Instantiate(motherSeed, enemyObj.transform.position, Quaternion.identity);
+            Destroy(enemyObj);
         }
-        
+    }
     void OnTriggerEnter(Collider other){
         if(other.gameObject.tag == "Kunai"){
+            Debug.Log("IT HIIIT");
             this.health -= 5;
             Destroy(other.gameObject);
         }
-    }
-        
-       
-        //enemyObj.transform.position += transform.forward * speed;
     }
 }

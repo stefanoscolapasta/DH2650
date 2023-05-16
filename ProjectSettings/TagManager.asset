@@ -15,6 +15,7 @@ TagManager:
   - Climbable
   - Boss
   - BossAtk
+  - HealthItem
   layers:
   - Default
   - TransparentFX

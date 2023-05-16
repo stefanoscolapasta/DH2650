@@ -5,17 +5,15 @@ public class WorldEvents : MonoBehaviour
     GameObject g;
     public GameObject rat;
     public GameObject boss;
-    public int[,] enemyLimits = new int[3,3]{{1,2,2},{2,3,5},{3,5,7}};
-    //public int[,] enemyLimits = new int[3,3]{{1,1,1},{1,1,1},{1,1,1}}; // FOR TESTING
-   // public int[] totalEnemies = {3,3,3};
-    public int[] totalEnemies = {5,10,15};
-    int spawnedEnemies = 0;
+    //int[,] enemyLimits = new int[3,3]{{1,2,2},{2,3,5},{3,5,7}};
+    public int[,] enemyLimits = new int[3,3]{{1,1,1},{1,1,1},{1,1,1}}; // FOR TESTING
+    public int[] totalEnemies = {3,3,3};
+    //int[] totalEnemies = {5,10,15};
     MeshRenderer render;
     public int currentWave = 0;
     bool waveSpawned = false;
     public int slainEnemies = 0;
     private int oldSlainEnemies = 0;
-    private int scaleEnemies = 0;
     GameObject progressGrass;
     GameObject[] progressGrassArray = new GameObject[4];
     GameObject[] playableLevels = new GameObject[4];
@@ -24,7 +22,7 @@ public class WorldEvents : MonoBehaviour
     bool[] clearedIsland = {false,false,false,false};
     GameObject[] Islands = new GameObject[4];
     Vector3[] islandWGD = new Vector3[4];
-    int AssignedIsland;
+    int AssignedIsland = 0;
     int oldAssigned = 0;
     int slainOnIsland = 0;
     bool bossSpawned = false;
@@ -53,7 +51,7 @@ public class WorldEvents : MonoBehaviour
         IslandVeg[1] = GameObject.Find("Island1veg");
         IslandVeg[2] = GameObject.Find("Island2veg");
 
-        int counter = 0;
+        /*int counter = 0;
         foreach (var vegG in IslandVeg)
         {
             arrayOfVegChild[counter] = new GameObject[vegG.transform.childCount];
@@ -67,7 +65,8 @@ public class WorldEvents : MonoBehaviour
                 activeVeg[counter][i] = false; //prolly unnecessary but wanna make sure it works as intended.
             }
             counter ++;
-        }
+        }*/
+        initVegetation();
 
         //------------------------------------------------
 
@@ -83,7 +82,8 @@ public class WorldEvents : MonoBehaviour
 
     
     void InitalizeGame(){
-        int AssignedIsland = 0;
+        AssignedIsland = 0;
+        currentWave = 0;
         player.transform.position = playableLevels[AssignedIsland].transform.position;
         int counter = 0;
         foreach(GameObject mg in Islands){
@@ -198,5 +198,49 @@ public class WorldEvents : MonoBehaviour
         enemy.tag = "Boss";
         enemy.transform.localScale *= 4;
         boss.GetComponent<BossMove>().healthBar.SetActive(true);
+    }
+
+    public int getCurrentTotalEnemies(){
+        return enemyLimits[getCurrentIsland(), currentWave];
+    }
+    public void restartGame(){
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        if(enemies != null){
+            foreach(GameObject g in enemies){
+                Destroy(g);
+            }
+        }
+        for(int i = 0; i < 3; i++){
+            Destroy(progressGrassArray[i]);
+        }
+        InitalizeGame();
+        waveSpawned = false;
+        slainEnemies = 0;
+        oldSlainEnemies = 0;
+        initVegetation();
+        
+        if(bossSpawned){
+            GameObject b = GameObject.FindGameObjectWithTag("Boss");
+            Destroy(b);
+            boss.GetComponent<BossMove>().healthBar.SetActive(false);
+            bossSpawned = false;
+        }
+    }
+    private void initVegetation(){
+        int counter = 0;
+        foreach (var vegG in IslandVeg)
+        {
+            arrayOfVegChild[counter] = new GameObject[vegG.transform.childCount];
+            activeVeg[counter] = new bool[vegG.transform.childCount];
+            vegScaler[counter] = new float[vegG.transform.childCount];
+            for (int i = 0; i < vegG.transform.childCount; i++){
+                vegScaler[counter][i] = 0.000001f;
+                arrayOfVegChild[counter][i] = vegG.transform.GetChild(i).gameObject;
+                arrayOfVegChild[counter][i].transform.localScale = new Vector3(vegScaler[counter][i],vegScaler[counter][i],vegScaler[counter][i]);
+                arrayOfVegChild[counter][i].active = false;
+                activeVeg[counter][i] = false; //prolly unnecessary but wanna make sure it works as intended.
+            }
+            counter ++;
+        }
     }
 }

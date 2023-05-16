@@ -396,8 +396,10 @@ MonoBehaviour:
   speed: 2.5
   wheelTurnSpeed: 50
   tiltAng: -15
-  health: 20
+  health: 10
   healthBar: {fileID: 4945723178040285633}
+  dropItem: {fileID: 8405384938431381854, guid: 21cc6b4727b8dee49951452ee4b4c9e2,
+    type: 3}
 --- !u!135 &1395607775
 SphereCollider:
   m_ObjectHideFlags: 0

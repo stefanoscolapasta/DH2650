@@ -25,8 +25,10 @@ namespace StarterAssets
         private Slider playerSlider;
         public TextMeshProUGUI text;
         private WorldEvents world; 
-        public TextMeshProUGUI defeat;
+        public GameObject defeat;
+        public Button respawnButton;
         private float bossAtkTimeout = 0f;
+        bool dead = false;
         
         public 
         //private int currentWave = 0;
@@ -39,7 +41,9 @@ namespace StarterAssets
             playerSlider = GameObject.FindGameObjectWithTag("PlayerSlider").GetComponent<Slider>();
             playerInput = GetComponent<StarterAssetsInputs>();
             shootingPoint = GetComponent<Rigidbody>().transform;
-            defeat.enabled = false;
+            defeat.SetActive(false);
+            abilities[0] = true;
+            respawnButton.onClick.AddListener(RespawnBtnClick);
         }
 
         // Update is called once per frame
@@ -82,15 +86,15 @@ namespace StarterAssets
                playerInput.ability3 = false; 
             }
 
-            text.text = world.slainEnemies + "/" + world.enemyLimits[world.getCurrentIsland(), world.currentWave];
+            text.text = world.slainEnemies + "/" + world.getCurrentTotalEnemies();
             bossAtkTimeout -= Time.deltaTime;
         }
         //pick-up
         void OnTriggerEnter(Collider other)
         {
-            if(other.name == "LeafKunaiAbility"){
-                abilities[0] = true;
-                Debug.Log("LeafKunaiPickedUp");
+            if(other.gameObject.tag == "HealthItem"){
+                health += 10;
+                Debug.Log("HEALTHPICKUP");
                 Destroy(other.gameObject);
             }
             if(other.name == "SmellyCloudAbility"){
@@ -102,9 +106,6 @@ namespace StarterAssets
         void OnTriggerStay(Collider other)
         {
             GameObject otherGameObject = other.gameObject;
-          /* if(otherGameObject.tag == "Enemy"){
-                health -= 5;
-            }*/
             //BOSS ATTACKS
             if(bossAtkTimeout <= 0){
                 if(otherGameObject.tag == "BossAtk"){
@@ -118,21 +119,24 @@ namespace StarterAssets
                 }
             }
             
-            if(health <= 0){
+            if(health <= 0 && !dead){
                 abilities[0] = false;
-                defeat.enabled = true;
-                //Destroy(self);
+                defeat.SetActive(true);
+                playerInput.cursorLocked = false;
+                playerInput.cursorInputForLook = false;
+                dead=true;
             }
         }
 
         void leafKunai(){
             GameObject leaf = UnityEngine.Object.Instantiate(leafKunaii,shootingPoint.position + self.transform.forward * 0.5f + pos, Quaternion.identity);
+            leaf.transform.Rotate(Quaternion.Euler(-90.0f,0, 0)*transform.forward);
             Vector3 rototot = self.transform.forward;
             GameObject cam = GameObject.FindGameObjectsWithTag("MainCamera")[0];
             //leaf.transform.Rotate(90f + rototot.x, 0f+ rototot.y, 0f+ rototot.z, Space.Self);
             //leaf.GetComponent<Rigidbody>().AddForce(transform.forward*10);
            // Debug.Log(cam.transform.rotation.eulerAngles);
-            leaf.GetComponent<Rigidbody>().AddForce(cam.transform.forward *10);
+            leaf.GetComponent<Rigidbody>().AddForce(cam.transform.forward *5);
             Destroy(leaf, 2);
         }
 
@@ -140,6 +144,16 @@ namespace StarterAssets
             smelly  = UnityEngine.Object.Instantiate(smellyCloud,self.transform.position + pos, Quaternion.identity);
             smellyAbilityActivated = true;
             Debug.Log("smellyCloudActivated");
+        }
+        void RespawnBtnClick(){
+            Debug.Log("Button Clicked!");
+            world.restartGame();
+            health = 100;
+            abilities[0] = true;
+            defeat.SetActive(false);
+            playerInput.cursorLocked = true;
+            playerInput.cursorInputForLook = true;
+            dead=false;
         }
     }
 }

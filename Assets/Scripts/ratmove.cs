@@ -21,6 +21,7 @@ public class RatMove : MonoBehaviour
     public int health = 20;
     public GameObject healthBar;
     private WorldEvents world;
+    public GameObject dropItem;
 
     // Start is called before the first frame update
     void Start()
@@ -43,7 +44,6 @@ public class RatMove : MonoBehaviour
 
     void move(float speed){
         enemyObj.transform.position += enemyObj.transform.forward * speed * Time.deltaTime;
-        Debug.Log("SPEEEED" + speed);
         if(attacking){
             enemyObj.transform.position += Vector3.up * Time.deltaTime;
         }else{
@@ -67,10 +67,13 @@ public class RatMove : MonoBehaviour
         }
         
         if(other.gameObject.tag == "Kunai"){
-            Debug.Log(this.health);
             this.health -= 5;
             if(this.health <= 0){
                 world.slainEnemies ++;
+                int itemRoll = Random.Range(0,10);
+                if(itemRoll <= 3){
+                    Instantiate(dropItem,enemyObj.transform.position,Quaternion.identity);
+                }
                 Destroy(enemyObj);
             }
             this.healthBar.GetComponent<Slider>().value = this.health;
