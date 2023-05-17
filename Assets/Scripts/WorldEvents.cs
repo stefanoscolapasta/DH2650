@@ -179,9 +179,7 @@ public class WorldEvents : MonoBehaviour
                     oldSlainEnemies = 0;
                     waveSpawned = false;
                 }
-            
             }
-
         }
     }
 
