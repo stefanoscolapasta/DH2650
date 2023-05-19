@@ -732,11 +732,26 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -5919409437193661253, guid: ac9caf68f48e4374ea97e5e81c45d62f,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 38eaf032e4cb1bf4483002cbd1d1757e, type: 2}
+    - target: {fileID: -869802868972329680, guid: ac9caf68f48e4374ea97e5e81c45d62f,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 611638338e2b52044a6801e91eaf7214, type: 2}
     - target: {fileID: 3234474530426490154, guid: ac9caf68f48e4374ea97e5e81c45d62f,
         type: 3}
       propertyPath: m_Name
       value: CactusBoss
       objectReference: {fileID: 0}
+    - target: {fileID: 4853338882905712780, guid: ac9caf68f48e4374ea97e5e81c45d62f,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: a42728fe244fa1d42b62ff19ae31841f, type: 2}
     - target: {fileID: 5557021868187121562, guid: ac9caf68f48e4374ea97e5e81c45d62f,
         type: 3}
       propertyPath: m_RootOrder

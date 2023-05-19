@@ -168,6 +168,7 @@ namespace StarterAssets
             playerInput.cursorLocked = true;
             playerInput.cursorInputForLook = true;
             dead=false;
+            self.transform.position = world.playableLevels[0].transform.position;
         }
     }
 }
