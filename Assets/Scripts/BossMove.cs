@@ -24,6 +24,10 @@ public class BossMove : MonoBehaviour
     public GameObject healthBar;
     public GameObject motherSeed;
     Animator animator;
+    public Material greenMat;
+    GameObject cactusBody;
+    bool dead = false;
+    GameObject weaponSpawn;
 
     // Start is called before the first frame update
     void Start()
@@ -32,6 +36,8 @@ public class BossMove : MonoBehaviour
         player = GameObject.FindWithTag("Player");
         enemyObj = this.gameObject;
         animator = gameObject.GetComponent<Animator>();
+        cactusBody = transform.Find("Boss/Cactus").gameObject;
+        weaponSpawn = transform.Find("KunaiSpawn").gameObject;
       // healthBar = GameObject.Find("Healthbar");
        //Physics.IgnoreCollision(weapon.GetComponent<Collider>(),GetComponent<Collider>());
     }
@@ -39,54 +45,61 @@ public class BossMove : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        enemyObj.transform.position += enemyObj.transform.forward * speed * Time.deltaTime;
-        this.healthBar.GetComponent<Slider>().value = this.health;
-        attackTimeout -= Time.deltaTime;
-        changeAttackTimer -= Time.deltaTime;
+        if(!dead){
+            enemyObj.transform.position += enemyObj.transform.forward * speed * Time.deltaTime;
+            this.healthBar.GetComponent<Slider>().value = this.health;
+            attackTimeout -= Time.deltaTime;
+            changeAttackTimer -= Time.deltaTime;
 
-        if(changeAttackTimer <= 0){
-            currentAttack = Random.Range(0,2);
-            Debug.Log("boss atk " + currentAttack);
-            changeAttackTimer = 3.0f;
-        }
+            if(changeAttackTimer <= 0){
+                currentAttack = Random.Range(0,2);
+                Debug.Log("boss atk " + currentAttack);
+                changeAttackTimer = 3.0f;
+            }
 
-        if(currentAttack == 0){ //Follow player
-            enemyObj.transform.LookAt(player.transform.position);
-            
-            if(attackTimeout <= 0){
-               // animator.SetBool("attack",true);
-               animator.Play("shoot",0,0.0f);
-                for(int i = 0; i < 3; i++){
-                    GameObject kunai = Instantiate(weapon, enemyObj.transform.position,Quaternion.identity);
-                    kunai.tag = "BossAtk";
-                    kunai.GetComponent<Rigidbody>().AddForce(transform.forward*10);
-                    if(i == 0){
-                        kunai.GetComponent<Rigidbody>().AddForce(transform.right*5);
-                    } else if(i == 2){
-                        kunai.GetComponent<Rigidbody>().AddForce((-1)*transform.right*5);
-                    }
-                    
-                    Destroy(kunai, 3);
-                }
-                attackTimeout = 0.8f;
+            if(currentAttack == 0){ //Follow player
+                enemyObj.transform.LookAt(player.transform.position);
                 
-                //animator.SetBool("attack",false);
+                if(attackTimeout <= 0){
+                // animator.SetBool("attack",true);
+                animator.Play("shoot",0,0.0f);
+                    for(int i = 0; i < 3; i++){
+                        GameObject kunai = Instantiate(weapon, weaponSpawn.transform.position,Quaternion.identity);
+                        kunai.tag = "BossAtk";
+                        kunai.GetComponent<Rigidbody>().AddForce(transform.forward*3);
+                        if(i == 0){
+                            kunai.GetComponent<Rigidbody>().AddForce(transform.right*2);
+                        } else if(i == 2){
+                            kunai.GetComponent<Rigidbody>().AddForce((-1)*transform.right*2);
+                        }
+                        
+                        Destroy(kunai, 3);
+                    }
+                    attackTimeout = 0.8f;
+                    
+                    //animator.SetBool("attack",false);
+                }
+            } else if (currentAttack == 1){ //Spin-attack
+            
+                enemyObj.transform.Rotate(0,6,0,Space.Self);
+                if(attackTimeout <= 0){
+                        GameObject kunai = Instantiate(weapon, weaponSpawn.transform.transform.position,Quaternion.identity);
+                        kunai.tag = "BossAtk";
+                        kunai.GetComponent<Rigidbody>().AddForce(transform.forward*5);
+                        attackTimeout = 0.2f;
+                        Destroy(kunai, 3);
+                }
+            }    
+           // enemyObj.transform.Rotate
+            //enemyObj.transform.position += transform.forward * speed;
+            if(health <= 0){
+                Instantiate(motherSeed, enemyObj.transform.position + new Vector3(5,0,0), Quaternion.identity);
+                cactusBody.GetComponent<Renderer>().material = greenMat;
+                dead = true;
+                //Destroy(enemyObj);
             }
-        } else if (currentAttack == 1){ //Spin-attack
-        
-            enemyObj.transform.Rotate(0,6,0,Space.Self);
-            if(attackTimeout <= 0){
-                    GameObject kunai = Instantiate(weapon, enemyObj.transform.position,Quaternion.identity);
-                    kunai.tag = "BossAtk";
-                    kunai.GetComponent<Rigidbody>().AddForce(transform.forward*20);
-                    attackTimeout = 0.2f;
-                    Destroy(kunai, 3);
-            }
-        }    
-        //enemyObj.transform.position += transform.forward * speed;
-        if(health <= 0){
-            Instantiate(motherSeed, enemyObj.transform.position, Quaternion.identity);
-            Destroy(enemyObj);
+        }else{
+
         }
     }
     void OnTriggerEnter(Collider other){
