@@ -14,8 +14,8 @@ namespace Vegetation
 
             if (Instance == null)
                 Instance = this;
-        else if (Instance != this)
-                Destroy(gameObject);
+       // else if (Instance != this)
+          //      Destroy(gameObject);
         }
         public List<Plant> plants;
 
@@ -58,7 +58,7 @@ namespace Vegetation
             Vector3 position, Vector3 rotation, bool isStatic, float destroyAfter)
         {
             GameObject go = CreatePlant(id, size, climbable, position, rotation, isStatic);
-            Destroy(go, destroyAfter);
+            //Destroy(go, destroyAfter);
             return go;
         }
 

@@ -35,7 +35,7 @@ public class WorldEvents : MonoBehaviour
     GameObject portal; 
     GameObject portalSpawn;
 
-    //public GameObject control;
+    public GameObject control;
     void Start(){
         portalSpawn = GameObject.FindGameObjectWithTag("temp");
         Islands[0] = GameObject.Find("0");
@@ -79,8 +79,8 @@ public class WorldEvents : MonoBehaviour
             islandWGD[counter] = levelRenders[counter].bounds.size;
             counter ++;
         }
-      // GameObject controllllller = Instantiate(control,new Vector3(0, 0, 0) ,Quaternion.identity);
-       // controllllller.name = "controller";
+       GameObject controllllller = Instantiate(control,new Vector3(0, 0, 0) ,Quaternion.identity);
+        controllllller.name = "controller";
     }
 
     void FixedUpdate() {
@@ -206,37 +206,11 @@ public class WorldEvents : MonoBehaviour
         return enemyLimits[getCurrentIsland(), currentWave];
     }
     public void restartGame(){
-        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
-        if(enemies != null){
-            foreach(GameObject g in enemies){
-                Destroy(g);
-            }
-        }
         GameObject[] plants = GameObject.FindGameObjectsWithTag("Plant");
         if(plants != null){
             foreach(GameObject p in plants){
                 Destroy(p);
             }
-        }
-
-        GameObject[] hp = GameObject.FindGameObjectsWithTag("HealthItem");
-        if(hp != null){
-            foreach(GameObject h in hp){
-                Destroy(h);
-            }
-        }
-
-        InitalizeGame();
-        waveSpawned = false;
-        slainEnemies = 0;
-        oldSlainEnemies = 0;
-        initVegetation();
-        
-        if(bossSpawned){
-            GameObject b = GameObject.FindGameObjectWithTag("Boss");
-            Destroy(b);
-            boss.GetComponent<BossMove>().healthBar.SetActive(false);
-            bossSpawned = false;
         }
     }
     private void initVegetation(){

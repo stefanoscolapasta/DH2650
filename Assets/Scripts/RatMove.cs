@@ -75,11 +75,11 @@ public class RatMove : MonoBehaviour
         }
         
         if(other.gameObject.tag == "Kunai"){
-            this.health -= 5;
+            this.health -= 20;
             if(this.health <= 0){
                 world.slainEnemies ++;
                 int itemRoll = Random.Range(0,10);
-                if(itemRoll <= 3){
+                if(itemRoll < 3){
                     GameObject drop = Instantiate(dropItem,enemyObj.transform.position,Quaternion.identity);
                     drop.transform.localScale /= 4;
                 }

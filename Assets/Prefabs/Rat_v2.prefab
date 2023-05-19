@@ -319,9 +319,9 @@ MonoBehaviour:
   m_HandleRect: {fileID: 0}
   m_Direction: 0
   m_MinValue: 0
-  m_MaxValue: 20
+  m_MaxValue: 100
   m_WholeNumbers: 0
-  m_Value: 20
+  m_Value: 100
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -396,7 +396,7 @@ MonoBehaviour:
   speed: 2.5
   wheelTurnSpeed: 50
   tiltAng: -15
-  health: 5
+  health: 100
   healthBar: {fileID: 4945723178040285633}
   dropItem: {fileID: 8405384938431381854, guid: 21cc6b4727b8dee49951452ee4b4c9e2,
     type: 3}

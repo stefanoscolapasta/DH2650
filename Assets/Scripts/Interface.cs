@@ -129,7 +129,7 @@ namespace StarterAssets
                     bossAtkTimeout = 0.1f;
                 }
                 if(otherGameObject.tag == "Boss" && !otherGameObject.GetComponent<BossMove>().isDead()){
-                    health -= 20;
+                    health -= 25;
                     bossAtkTimeout = 0.1f;
                 }
             }
@@ -161,9 +161,11 @@ namespace StarterAssets
             Debug.Log("smellyCloudActivated");
         }
         void RespawnBtnClick(){
+            world.restartGame();
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
         void GardenBtnClick(){
+            world.restartGame();
             SceneManager.LoadScene("Garden");
         }
     }
