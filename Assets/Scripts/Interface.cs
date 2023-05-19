@@ -144,13 +144,11 @@ namespace StarterAssets
             GameObject leaf = UnityEngine.Object.Instantiate(leafKunaii,cam.transform.position + self.transform.forward * 0.5f, Quaternion.identity);
             leaf.transform.Rotate(Quaternion.Euler(-90.0f,0, 0)*transform.forward);
             Vector3 rototot = self.transform.forward;
-            
-            //leaf.transform.Rotate(90f + rototot.x, 0f+ rototot.y, 0f+ rototot.z, Space.Self);
             //leaf.GetComponent<Rigidbody>().AddForce(transform.forward*10);
            // Debug.Log(cam.transform.rotation.eulerAngles);
             leaf.GetComponent<Rigidbody>().AddForce(cam.transform.forward *10);
-            
-            
+            Debug.Log(cam.transform.forward);
+            leaf.transform.Rotate(cam.transform.rotation.eulerAngles.x + 270f,cam.transform.rotation.eulerAngles.y,cam.transform.rotation.eulerAngles.z);
             Destroy(leaf, 2);
         }
 
