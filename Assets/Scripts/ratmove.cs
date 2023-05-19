@@ -39,7 +39,7 @@ public class RatMove : MonoBehaviour
     {
         turn += wheelTurnSpeed * Time.deltaTime;
         enemyObj.transform.LookAt(player.transform.position);
-       
+       attackTimeout -= Time.deltaTime;
         //enemyObj.transform.position += transform.forward * speed;
         move(speed);
     }
@@ -56,7 +56,7 @@ public class RatMove : MonoBehaviour
          
     }
     void OnCollisionStay(Collision col){
-        Debug.Log("getTag: " + col.collider.gameObject.tag);
+        //Debug.Log("getTag: " + col.collider.gameObject.tag);
         if(col.collider.gameObject.tag == "Plant"){
             speed = 0;
         }
@@ -64,7 +64,7 @@ public class RatMove : MonoBehaviour
 
     void OnTriggerEnter(Collider other){
        // Debug.Log(other.gameObject.tag + " Enter ");
-       attackTimeout -= Time.deltaTime;
+       
         if(other.gameObject.tag == "Player"){
             speed = speed * -1;
             attacking = true;

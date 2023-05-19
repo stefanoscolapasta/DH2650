@@ -30,6 +30,7 @@ namespace StarterAssets
         private WorldEvents world; 
         public GameObject defeat;
         public Button respawnButton;
+        public Button gardenButton;
         private float bossAtkTimeout = 0f;
         bool dead = false;
         
@@ -47,6 +48,7 @@ namespace StarterAssets
             defeat.SetActive(false);
             abilities[0] = true;
             respawnButton.onClick.AddListener(RespawnBtnClick);
+            gardenButton.onClick.AddListener(GardenBtnClick);
         }
 
         // Update is called once per frame
@@ -146,8 +148,7 @@ namespace StarterAssets
             GameObject leaf = UnityEngine.Object.Instantiate(leafKunaii,cam.transform.position + self.transform.forward * 0.5f, Quaternion.identity);
             leaf.transform.Rotate(Quaternion.Euler(-90.0f,0, 0)*transform.forward);
             Vector3 rototot = self.transform.forward;
-            //leaf.GetComponent<Rigidbody>().AddForce(transform.forward*10);
-           // Debug.Log(cam.transform.rotation.eulerAngles);
+            
             leaf.GetComponent<Rigidbody>().AddForce(cam.transform.forward *10);
             Debug.Log(cam.transform.forward);
             leaf.transform.Rotate(cam.transform.rotation.eulerAngles.x + 270f,cam.transform.rotation.eulerAngles.y,cam.transform.rotation.eulerAngles.z);
@@ -160,16 +161,10 @@ namespace StarterAssets
             Debug.Log("smellyCloudActivated");
         }
         void RespawnBtnClick(){
-            Debug.Log("Button Clicked!");
-           /* world.restartGame();
-            health = 100;
-            abilities[0] = true;
-            defeat.SetActive(false);
-            playerInput.cursorLocked = true;
-            playerInput.cursorInputForLook = true;
-            dead=false;
-            self.transform.position = world.playableLevels[0].transform.position;*/
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
+        void GardenBtnClick(){
+            SceneManager.LoadScene("Garden");
         }
     }
 }

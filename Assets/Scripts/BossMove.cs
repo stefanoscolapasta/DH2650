@@ -54,14 +54,15 @@ public class BossMove : MonoBehaviour
             changeAttackTimer -= Time.deltaTime;
 
             if(changeAttackTimer <= 0){
-                currentAttack = Random.Range(0,2);
+                animator.SetBool("run",false);
+                currentAttack = Random.Range(0,3);
                 Debug.Log("boss atk " + currentAttack);
                 changeAttackTimer = 3.0f;
             }
 
             if(currentAttack == 0){ //Follow player
                 enemyObj.transform.LookAt(player.transform.position);
-                
+                speed = 2;
                 if(attackTimeout <= 0){
                 // animator.SetBool("attack",true);
                 animator.Play("shoot",0,0.0f);
@@ -82,7 +83,7 @@ public class BossMove : MonoBehaviour
                     //animator.SetBool("attack",false);
                 }
             } else if (currentAttack == 1){ //Spin-attack
-            
+                speed = 2;
                 enemyObj.transform.Rotate(0,6,0,Space.Self);
                 if(attackTimeout <= 0){
                         GameObject kunai = Instantiate(weapon, weaponSpawn.transform.transform.position,Quaternion.identity);
@@ -91,6 +92,10 @@ public class BossMove : MonoBehaviour
                         attackTimeout = 0.2f;
                         Destroy(kunai, 3);
                 }
+            } else if (currentAttack == 2){
+                animator.SetBool("run",true);
+                enemyObj.transform.LookAt(player.transform.position);
+                speed = 7;
             }    
            // enemyObj.transform.Rotate
             //enemyObj.transform.position += transform.forward * speed;
