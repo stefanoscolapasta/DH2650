@@ -22,7 +22,7 @@ public class MainMenu : MonoBehaviour
 
     public void StartGame(){
         Debug.Log("Button Clicked1!");
-        SceneManager.LoadScene("Playground");
+        SceneManager.LoadScene("Garden");
     }
 
     public void ExitGame(){
