@@ -34,6 +34,8 @@ public class WorldEvents : MonoBehaviour
     public bool takenPortal;
     GameObject portal; 
     GameObject portalSpawn;
+
+    public GameObject control;
     void Start(){
         portalSpawn = GameObject.FindGameObjectWithTag("temp");
         Islands[0] = GameObject.Find("0");
@@ -77,6 +79,8 @@ public class WorldEvents : MonoBehaviour
             islandWGD[counter] = levelRenders[counter].bounds.size;
             counter ++;
         }
+        GameObject controllllller = Instantiate(control,new Vector3(0, 0, 0) ,Quaternion.identity);
+        controllllller.name = "controller";
     }
 
     void FixedUpdate() {
