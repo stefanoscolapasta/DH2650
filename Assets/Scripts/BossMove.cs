@@ -23,6 +23,7 @@ public class BossMove : MonoBehaviour
     private WorldEvents world;
     public GameObject healthBar;
     public GameObject motherSeed;
+    Animator animator;
 
     // Start is called before the first frame update
     void Start()
@@ -30,7 +31,9 @@ public class BossMove : MonoBehaviour
         world = GameObject.Find("level").GetComponent<WorldEvents>();
         player = GameObject.FindWithTag("Player");
         enemyObj = this.gameObject;
+        animator = gameObject.GetComponent<Animator>();
       // healthBar = GameObject.Find("Healthbar");
+       //Physics.IgnoreCollision(weapon.GetComponent<Collider>(),GetComponent<Collider>());
     }
 
     // Update is called once per frame
@@ -51,6 +54,8 @@ public class BossMove : MonoBehaviour
             enemyObj.transform.LookAt(player.transform.position);
             
             if(attackTimeout <= 0){
+               // animator.SetBool("attack",true);
+               animator.Play("shoot",0,0.0f);
                 for(int i = 0; i < 3; i++){
                     GameObject kunai = Instantiate(weapon, enemyObj.transform.position,Quaternion.identity);
                     kunai.tag = "BossAtk";
@@ -63,9 +68,12 @@ public class BossMove : MonoBehaviour
                     
                     Destroy(kunai, 3);
                 }
-                attackTimeout = 0.4f;
+                attackTimeout = 0.8f;
+                
+                //animator.SetBool("attack",false);
             }
         } else if (currentAttack == 1){ //Spin-attack
+        
             enemyObj.transform.Rotate(0,6,0,Space.Self);
             if(attackTimeout <= 0){
                     GameObject kunai = Instantiate(weapon, enemyObj.transform.position,Quaternion.identity);

@@ -5,10 +5,10 @@ public class WorldEvents : MonoBehaviour
     GameObject g;
     public GameObject rat;
     public GameObject boss;
-    //int[,] enemyLimits = new int[3,3]{{1,2,2},{2,3,5},{3,5,7}};
-    public int[,] enemyLimits = new int[3,3]{{1,1,1},{1,1,1},{1,1,1}}; // FOR TESTING
-    public int[] totalEnemies = {3,3,3};
-    //int[] totalEnemies = {5,10,15};
+    int[,] enemyLimits = new int[3,3]{{1,2,2},{2,3,5},{3,5,7}};
+    //public int[,] enemyLimits = new int[3,3]{{1,1,1},{1,1,1},{1,1,1}}; // FOR TESTING
+    //public int[] totalEnemies = {3,3,3};
+    int[] totalEnemies = {5,10,15};
     MeshRenderer render;
     public int currentWave = 0;
     bool waveSpawned = false;
