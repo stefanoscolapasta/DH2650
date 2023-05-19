@@ -17,6 +17,7 @@ TagManager:
   - BossAtk
   - HealthItem
   - Plant
+  - temp
   layers:
   - Default
   - TransparentFX
@@ -24,7 +25,7 @@ TagManager:
   - Climbable
   - Water
   - UI
-  - 
+  - Interactable
   - 
   - 
   - 

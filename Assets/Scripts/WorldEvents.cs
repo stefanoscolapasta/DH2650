@@ -14,14 +14,14 @@ public class WorldEvents : MonoBehaviour
     bool waveSpawned = false;
     public int slainEnemies = 0;
     private int oldSlainEnemies = 0;    
-    GameObject[] playableLevels = new GameObject[4];
+    public GameObject[] playableLevels = new GameObject[4];
     MeshRenderer[] levelRenders = new MeshRenderer[4];
     GameObject player;
     bool[] clearedIsland = {false,false,false,false};
-    GameObject[] Islands = new GameObject[4];
+    public GameObject[] Islands = new GameObject[4];
     Vector3[] islandWGD = new Vector3[4];
-    int AssignedIsland = 0;
-    int oldAssigned = 0;
+    public int AssignedIsland = 0;
+    public int oldAssigned = 0;
     int slainOnIsland = 0;
     bool bossSpawned = false;
     
@@ -31,7 +31,11 @@ public class WorldEvents : MonoBehaviour
     int vegIndex = 0;
     float[][] vegScaler = new float[3][];
 
+    public bool takenPortal;
+    GameObject portal; 
+    GameObject portalSpawn;
     void Start(){
+        portalSpawn = GameObject.FindGameObjectWithTag("temp");
         Islands[0] = GameObject.Find("0");
         Islands[1] = GameObject.Find("1");
         Islands[2] = GameObject.Find("2");
@@ -50,7 +54,7 @@ public class WorldEvents : MonoBehaviour
         IslandVeg[2] = GameObject.Find("Island2veg");
 
         initVegetation();
-
+        
         //------------------------------------------------
 
         player = GameObject.FindWithTag("Player");
@@ -76,92 +80,109 @@ public class WorldEvents : MonoBehaviour
     }
 
     void FixedUpdate() {
-        int outer = 0;
-        int inner = 0;
-        foreach (var vegitationInProcessPerIsland in activeVeg)
-        {
-            foreach (bool b in vegitationInProcessPerIsland)
-            {
-                if(b){
-                    if(vegScaler[outer][inner] >= 1f){
-                        activeVeg[outer][inner] = false;
-                    }
-                    else{
-                        vegScaler[outer][inner] += 0.01f;
-                        arrayOfVegChild[outer][inner].transform.localScale = new Vector3(vegScaler[outer][inner],vegScaler[outer][inner],vegScaler[outer][inner]);
-                    }
-                }
-                inner ++;
-            }
-            outer ++;
-            inner = 0;
-        }
 
-        if(waveSpawned == false && bossSpawned == false){
-            for(int i = 0; i < enemyLimits[AssignedIsland,currentWave]; i++){
-                Vector3 pos = playableLevels[AssignedIsland].transform.position;
-                float radius = islandWGD[AssignedIsland].x / 2 - 2;
-                float angle = (Random.Range(0,Mathf.PI));
-                float x = Mathf.Cos(angle)*radius;
-                float y = Mathf.Sin(angle)*radius;
-                GameObject enemy = Instantiate(rat,pos + new Vector3(x, 1, y) ,Quaternion.identity);
-                enemy.tag = "Enemy";
-            }
-            waveSpawned = true;
+        if(portal != null){
+            if(takenPortal){
+                takenPortal = false;
+                Destroy(portal);
+                oldAssigned = AssignedIsland;
+                player.transform.position = playableLevels[AssignedIsland].transform.position;
+                slainOnIsland = 0;
+                vegIndex = 0;
+                portal = null;
+            }      
         }
-
-        if(AssignedIsland != oldAssigned){
-            oldAssigned = AssignedIsland;
-            player.transform.position = playableLevels[AssignedIsland].transform.position;
-            slainOnIsland = 0;
-            vegIndex = 0;
-        }
-
-        if(slainEnemies > oldSlainEnemies){
-            oldSlainEnemies ++;
-            int totOnIsland = 0;
-            foreach (int enemiesSpawn in enemyLimits){
-                totOnIsland += enemiesSpawn;
-            }
-            slainOnIsland ++;
-            Debug.Log(slainOnIsland);
-            float ratioOfKilledEnemies = (float) slainOnIsland/ (float) totalEnemies[AssignedIsland];
-            //Set veg on island to start animate()
-            float upperLimitOfVeg = (float) arrayOfVegChild[AssignedIsland].Length * (float) ratioOfKilledEnemies;
-            for(int i = vegIndex ; i <= upperLimitOfVeg; i ++){
-                if(i >= activeVeg[AssignedIsland].Length){
-                    break;
+        else{
+            if(AssignedIsland != oldAssigned){
+                if(portal == null){
+                    portalSpawn = GameObject.FindGameObjectWithTag("temp");
+                    portal =  Instantiate(portalSpawn, playableLevels[oldAssigned].transform.position ,Quaternion.identity);
                 }
-                Debug.Log("vegIndex " + i);
-                Debug.Log("ratioOfKilledEnemies " + ratioOfKilledEnemies);
-                activeVeg[AssignedIsland][i] = true;
-                arrayOfVegChild[AssignedIsland][i].active = true; //not here
-                vegIndex = i;
-            }
-            vegIndex = (int) upperLimitOfVeg;
-        }
-            
-        if(GameObject.FindGameObjectsWithTag("Enemy").Length == 0 && !bossSpawned){
-            Debug.Log("Wave " + currentWave + " done");
-            if(currentWave >= 2){
-                if(AssignedIsland < 2){
-                    currentWave = 0;
-                    clearedIsland[AssignedIsland] = true;
-                    AssignedIsland ++;
-                }else{
-                    bossSpawned = true;
-                    summonBoss();
-                }
-                
             }
             else{
-                currentWave++;
+                int outer = 0;
+                int inner = 0;
+                foreach (var vegitationInProcessPerIsland in activeVeg)
+                {
+                    foreach (bool b in vegitationInProcessPerIsland)
+                    {
+                        if(b){
+                            if(vegScaler[outer][inner] >= 1f){
+                                activeVeg[outer][inner] = false;
+                            }
+                            else{
+                                vegScaler[outer][inner] += 0.01f;
+                                arrayOfVegChild[outer][inner].transform.localScale = new Vector3(vegScaler[outer][inner],vegScaler[outer][inner],vegScaler[outer][inner]);
+                            }
+                        }
+                        inner ++;
+                    }
+                    outer ++;
+                    inner = 0;
+                }
+
+                if(waveSpawned == false && bossSpawned == false){
+                    for(int i = 0; i < enemyLimits[AssignedIsland,currentWave]; i++){
+                        Vector3 pos = playableLevels[AssignedIsland].transform.position;
+                        float radius = islandWGD[AssignedIsland].x / 2 - 2;
+                        float angle = (Random.Range(0,Mathf.PI));
+                        float x = Mathf.Cos(angle)*radius;
+                        float y = Mathf.Sin(angle)*radius;
+                        GameObject enemy = Instantiate(rat,pos + new Vector3(x, 1, y) ,Quaternion.identity);
+                        enemy.tag = "Enemy";
+                    }
+                    waveSpawned = true;
+                }
+
+
+                if(slainEnemies > oldSlainEnemies){
+                    oldSlainEnemies ++;
+                    int totOnIsland = 0;
+                    foreach (int enemiesSpawn in enemyLimits){
+                        totOnIsland += enemiesSpawn;
+                    }
+                    slainOnIsland ++;
+                    Debug.Log(slainOnIsland);
+                    float ratioOfKilledEnemies = (float) slainOnIsland/ (float) totalEnemies[AssignedIsland];
+                    //Set veg on island to start animate()
+                    float upperLimitOfVeg = (float) arrayOfVegChild[AssignedIsland].Length * (float) ratioOfKilledEnemies;
+                    for(int i = vegIndex ; i <= upperLimitOfVeg; i ++){
+                        if(i >= activeVeg[AssignedIsland].Length){
+                            break;
+                        }
+                        Debug.Log("vegIndex " + i);
+                        Debug.Log("ratioOfKilledEnemies " + ratioOfKilledEnemies);
+                        activeVeg[AssignedIsland][i] = true;
+                        arrayOfVegChild[AssignedIsland][i].active = true; //not here
+                        vegIndex = i;
+                    }
+                    vegIndex = (int) upperLimitOfVeg;
+                }
+                    
+                if(GameObject.FindGameObjectsWithTag("Enemy").Length == 0 && !bossSpawned){
+                    Debug.Log("Wave " + currentWave + " done");
+                    if(currentWave >= 2){
+                        if(AssignedIsland < 2){
+                            currentWave = 0;
+                            clearedIsland[AssignedIsland] = true;
+                            AssignedIsland ++;
+                        }else{
+                            bossSpawned = true;
+                            summonBoss();
+                        }
+                        
+                    }
+                    else{
+                        currentWave++;
+                    }
+                    slainEnemies = 0;
+                    oldSlainEnemies = 0;
+                    waveSpawned = false;
+                }
             }
-            slainEnemies = 0;
-            oldSlainEnemies = 0;
-            waveSpawned = false;
         }
     }
+
     public int getCurrentIsland(){
         return this.AssignedIsland;
     }
@@ -172,7 +193,7 @@ public class WorldEvents : MonoBehaviour
         GameObject enemy = Instantiate(boss,pos ,Quaternion.identity);
         enemy.SetActive(true);
         enemy.tag = "Boss";
-        enemy.transform.localScale *= 4;
+        enemy.transform.localScale *= 40;
         boss.GetComponent<BossMove>().healthBar.SetActive(true);
     }
 
@@ -186,7 +207,6 @@ public class WorldEvents : MonoBehaviour
                 Destroy(g);
             }
         }
-
         GameObject[] plants = GameObject.FindGameObjectsWithTag("Plant");
         if(plants != null){
             foreach(GameObject p in plants){

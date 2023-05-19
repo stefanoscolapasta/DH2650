@@ -103,6 +103,16 @@ namespace StarterAssets
                 Debug.Log("SmellyCloudPickedUp");
                 Destroy(other.gameObject);
             }
+            Debug.Log(world.AssignedIsland + " : " +  world.oldAssigned);
+            if(world.AssignedIsland != world.oldAssigned){
+                Debug.Log(world.playableLevels[world.oldAssigned].name + " : " + other.gameObject.name);
+                if(world.Islands[world.oldAssigned] == other.gameObject){
+                    Debug.Log(playerInput.interaction);
+                    if(playerInput.interaction){
+                        world.takenPortal = true;
+                    }
+                }
+            }
         }
         void OnTriggerStay(Collider other)
         {

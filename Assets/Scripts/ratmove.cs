@@ -23,6 +23,8 @@ public class RatMove : MonoBehaviour
     private WorldEvents world;
     public GameObject dropItem;
 
+    private bool onVine;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -52,6 +54,12 @@ public class RatMove : MonoBehaviour
             }
         }
          
+    }
+    void OnCollisionStay(Collision col){
+        Debug.Log("getTag: " + col.collider.gameObject.tag);
+        if(col.collider.gameObject.tag == "Plant"){
+            speed = 0;
+        }
     }
 
     void OnTriggerEnter(Collider other){
@@ -83,7 +91,6 @@ public class RatMove : MonoBehaviour
                     0, 0.8f, true, hit.point,
                     Quaternion.FromToRotation(Vector3.up, hit.normal).eulerAngles,
                     true);
-                    
                 }
                 Destroy(enemyObj);
             }
@@ -98,6 +105,9 @@ public class RatMove : MonoBehaviour
         if(other.gameObject.tag == "Player"){
             speed = speed * -1;
             attacking = false;
+        }
+        if(other.gameObject.tag == "Plant"){
+            speed = 0;
         }
     }
     

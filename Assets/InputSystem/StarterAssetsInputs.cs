@@ -15,6 +15,8 @@ namespace StarterAssets
 		public bool ability1;
 		public bool ability2;
 		public bool ability3;
+		public bool ability4;
+		public bool interaction;
 
 		[Header("Movement Settings")]
 		public bool analogMovement;
@@ -59,6 +61,14 @@ namespace StarterAssets
 		{
 			AbilityInput3(value.isPressed);
 		}
+		public void OnAbility4(InputValue value)
+		{
+			AbilityInput4(value.isPressed);
+		}
+		public void OnInteraction(InputValue value)
+		{
+			InteractionInput(value.isPressed);
+		}
 
 
 #endif
@@ -94,6 +104,13 @@ namespace StarterAssets
 
 		public void AbilityInput3(bool newAbilityState3){
 			ability3 = newAbilityState3;
+		}
+		public void AbilityInput4(bool newAbilityState4){
+			ability3 = newAbilityState4;
+		}
+
+		public void InteractionInput(bool newInteractionStateE){
+			interaction = newInteractionStateE;
 		}
 
 		private void OnApplicationFocus(bool hasFocus)
