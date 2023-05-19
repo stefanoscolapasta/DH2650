@@ -3,10 +3,12 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using TMPro;
 using Vegetation;
 #if ENABLE_INPUT_SYSTEM && STARTER_ASSETS_PACKAGES_CHECKED
 using UnityEngine.InputSystem;
+
 #endif
 namespace StarterAssets
 {
@@ -124,7 +126,7 @@ namespace StarterAssets
                     Destroy(otherGameObject);
                     bossAtkTimeout = 0.1f;
                 }
-                if(otherGameObject.tag == "Boss"){
+                if(otherGameObject.tag == "Boss" && !otherGameObject.GetComponent<BossMove>().isDead()){
                     health -= 20;
                     bossAtkTimeout = 0.1f;
                 }
@@ -159,14 +161,15 @@ namespace StarterAssets
         }
         void RespawnBtnClick(){
             Debug.Log("Button Clicked!");
-            world.restartGame();
+           /* world.restartGame();
             health = 100;
             abilities[0] = true;
             defeat.SetActive(false);
             playerInput.cursorLocked = true;
             playerInput.cursorInputForLook = true;
             dead=false;
-            self.transform.position = world.playableLevels[0].transform.position;
+            self.transform.position = world.playableLevels[0].transform.position;*/
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
     }
 }

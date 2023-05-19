@@ -199,6 +199,7 @@ public class WorldEvents : MonoBehaviour
         enemy.tag = "Boss";
         enemy.transform.localScale *= 40;
         boss.GetComponent<BossMove>().healthBar.SetActive(true);
+        player.GetComponent<StarterAssets.Interface>().text.enabled = false;
     }
 
     public int getCurrentTotalEnemies(){

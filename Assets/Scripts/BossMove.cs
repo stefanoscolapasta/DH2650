@@ -26,6 +26,7 @@ public class BossMove : MonoBehaviour
     Animator animator;
     public Material greenMat;
     GameObject cactusBody;
+    GameObject wheels;
     bool dead = false;
     GameObject weaponSpawn;
 
@@ -37,6 +38,7 @@ public class BossMove : MonoBehaviour
         enemyObj = this.gameObject;
         animator = gameObject.GetComponent<Animator>();
         cactusBody = transform.Find("Boss/Cactus").gameObject;
+        wheels = transform.Find("Boss/Wheels").gameObject;
         weaponSpawn = transform.Find("KunaiSpawn").gameObject;
       // healthBar = GameObject.Find("Healthbar");
        //Physics.IgnoreCollision(weapon.GetComponent<Collider>(),GetComponent<Collider>());
@@ -96,6 +98,8 @@ public class BossMove : MonoBehaviour
                 Instantiate(motherSeed, enemyObj.transform.position + new Vector3(5,0,0), Quaternion.identity);
                 cactusBody.GetComponent<Renderer>().material = greenMat;
                 dead = true;
+                this.healthBar.SetActive(false);
+                wheels.SetActive(false);
                 //Destroy(enemyObj);
             }
         }else{
@@ -108,5 +112,8 @@ public class BossMove : MonoBehaviour
             this.health -= 5;
             Destroy(other.gameObject);
         }
+    }
+    public bool isDead(){
+        return this.dead;
     }
 }
