@@ -33,6 +33,7 @@ namespace StarterAssets
         public Button gardenButton;
         private float bossAtkTimeout = 0f;
         bool dead = false;
+        private GameObject hpBar;
         
         public 
         //private int currentWave = 0;
@@ -49,6 +50,7 @@ namespace StarterAssets
             abilities[0] = true;
             respawnButton.onClick.AddListener(RespawnBtnClick);
             gardenButton.onClick.AddListener(GardenBtnClick);
+            hpBar = GameObject.FindGameObjectWithTag("playerhp");
         }
 
         // Update is called once per frame
@@ -137,6 +139,7 @@ namespace StarterAssets
             if(health <= 0 && !dead){
                 abilities[0] = false;
                 defeat.SetActive(true);
+                hpBar.SetActive(false);
                 playerInput.cursorLocked = false;
                 playerInput.cursorInputForLook = false;
                 dead=true;

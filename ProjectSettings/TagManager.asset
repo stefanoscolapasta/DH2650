@@ -19,6 +19,7 @@ TagManager:
   - Plant
   - temp
   - Teleporter
+  - playerhp
   layers:
   - Default
   - TransparentFX
