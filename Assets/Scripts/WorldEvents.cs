@@ -35,8 +35,13 @@ public class WorldEvents : MonoBehaviour
     GameObject portal; 
     GameObject portalSpawn;
 
+    AudioSource audio;
+    public AudioClip wavesAudio;
+    public AudioClip bossAudio;
+    
     public GameObject control;
     void Start(){
+        audio = gameObject.GetComponent<AudioSource>();
         portalSpawn = GameObject.FindGameObjectWithTag("temp");
         Islands[0] = GameObject.Find("0");
         Islands[1] = GameObject.Find("1");
@@ -63,13 +68,15 @@ public class WorldEvents : MonoBehaviour
         //playableLevels = GameObject.FindGameObjectsWithTag("PlayableLevel");
         InitalizeGame();
         g = gameObject;
-
+        
         boss.SetActive(false);
         boss.GetComponent<BossMove>().healthBar.SetActive(false);
     }
 
     
     void InitalizeGame(){
+        audio.clip = wavesAudio;
+        audio.Play();
         AssignedIsland = 0;
         currentWave = 0;
         player.transform.position = playableLevels[AssignedIsland].transform.position;
@@ -193,7 +200,8 @@ public class WorldEvents : MonoBehaviour
     
     private void summonBoss(){
         Vector3 pos = playableLevels[AssignedIsland].transform.position;
-
+        audio.clip = bossAudio;
+        audio.Play();
         GameObject enemy = Instantiate(boss,pos ,Quaternion.identity);
         enemy.SetActive(true);
         enemy.tag = "Boss";
