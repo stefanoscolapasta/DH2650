@@ -105,6 +105,7 @@ public class BossMove : MonoBehaviour
                 dead = true;
                 this.healthBar.SetActive(false);
                 wheels.SetActive(false);
+                player.GetComponent<StarterAssets.Interface>().victory.SetActive(true);
                 //Destroy(enemyObj);
             }
         }else{
