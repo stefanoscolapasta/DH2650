@@ -29,8 +29,10 @@ namespace StarterAssets
         public TextMeshProUGUI text;
         private WorldEvents world; 
         public GameObject defeat;
+        public GameObject victory;
         public Button respawnButton;
         public Button gardenButton;
+        public GameObject button;
         private float bossAtkTimeout = 0f;
         bool dead = false;
         private GameObject hpBar;
@@ -48,6 +50,8 @@ namespace StarterAssets
             playerInput = GetComponent<StarterAssetsInputs>();
             shootingPoint = GetComponent<Rigidbody>().transform;
             defeat.SetActive(false);
+            victory.SetActive(false);
+            button.SetActive(false);
             abilities[0] = true;
             respawnButton.onClick.AddListener(RespawnBtnClick);
             gardenButton.onClick.AddListener(GardenBtnClick);
@@ -82,7 +86,7 @@ namespace StarterAssets
             }
 
             if(playerInput.ability1 && abilities[0] && abilityColdown1 <= 0){
-                abilityColdown1 = 0.5f;
+                abilityColdown1 = 0.25f;
                 leafKunai();
             } else{
                playerInput.ability1 = false; 
@@ -101,6 +105,7 @@ namespace StarterAssets
 
             text.text = world.slainEnemies + "/" + world.getCurrentTotalEnemies();
             bossAtkTimeout -= Time.deltaTime;
+            
         }
         //pick-up
         void OnTriggerEnter(Collider other)
@@ -136,6 +141,7 @@ namespace StarterAssets
                 hpBar.SetActive(false);
                 playerInput.cursorLocked = false;
                 playerInput.cursorInputForLook = false;
+                button.SetActive(true);
                 dead=true;
             }
             Debug.Log(world.AssignedIsland + " : " +  world.oldAssigned);
