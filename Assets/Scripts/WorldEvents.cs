@@ -38,9 +38,12 @@ public class WorldEvents : MonoBehaviour
     AudioSource audio;
     public AudioClip wavesAudio;
     public AudioClip bossAudio;
+    
+    //Interface interface;
 
     //public GameObject control;
     void Start(){
+        //Interface interface = GameObject.Find("PlayerCapsule").GetComponent<Interface>();
         audio = gameObject.GetComponent<AudioSource>();
         portalSpawn = GameObject.FindGameObjectWithTag("temp");
         Islands[0] = GameObject.Find("0");
@@ -91,9 +94,10 @@ public class WorldEvents : MonoBehaviour
     }
 
     void FixedUpdate() {
+        //if(interface.pressedE)
 
         if(portal != null){
-            if(takenPortal){
+            if(takenPortal ){ // && interface.pressedE
                 takenPortal = false;
                 Destroy(portal);
                 oldAssigned = AssignedIsland;
@@ -153,7 +157,6 @@ public class WorldEvents : MonoBehaviour
                         totOnIsland += enemiesSpawn;
                     }
                     slainOnIsland ++;
-                    Debug.Log(slainOnIsland);
                     float ratioOfKilledEnemies = (float) slainOnIsland/ (float) totalEnemies[AssignedIsland];
                     //Set veg on island to start animate()
                     float upperLimitOfVeg = (float) arrayOfVegChild[AssignedIsland].Length * (float) ratioOfKilledEnemies;
@@ -161,8 +164,6 @@ public class WorldEvents : MonoBehaviour
                         if(i >= activeVeg[AssignedIsland].Length){
                             break;
                         }
-                        Debug.Log("vegIndex " + i);
-                        Debug.Log("ratioOfKilledEnemies " + ratioOfKilledEnemies);
                         activeVeg[AssignedIsland][i] = true;
                         arrayOfVegChild[AssignedIsland][i].active = true; //not here
                         vegIndex = i;
@@ -171,7 +172,6 @@ public class WorldEvents : MonoBehaviour
                 }
                     
                 if(GameObject.FindGameObjectsWithTag("Enemy").Length == 0 && !bossSpawned){
-                    Debug.Log("Wave " + currentWave + " done");
                     if(currentWave >= 2){
                         if(AssignedIsland < 2){
                             currentWave = 0;

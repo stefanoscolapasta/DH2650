@@ -34,6 +34,7 @@ namespace StarterAssets
         private float bossAtkTimeout = 0f;
         bool dead = false;
         private GameObject hpBar;
+        public bool pressedE = false;
         
         public 
         //private int currentWave = 0;
@@ -57,6 +58,12 @@ namespace StarterAssets
         void FixedUpdate()
         
         {
+            if(Input.GetKeyDown(KeyCode.E)){
+                pressedE = true;
+            }
+            else{
+                pressedE = false;
+            }
             playerSlider.value = health;
             //Stuff that happens every GameTic
             if(smellyAbilityActivated == true){
@@ -88,7 +95,6 @@ namespace StarterAssets
                playerInput.ability2 = false; 
             }
             if(playerInput.ability3 && abilities[0]){
-                Debug.Log("knas plz3");
             } else{
                playerInput.ability3 = false; 
             }
@@ -101,23 +107,11 @@ namespace StarterAssets
         {
             if(other.gameObject.tag == "HealthItem"){
                 health += 10;
-                Debug.Log("HEALTHPICKUP");
                 Destroy(other.gameObject);
             }
             if(other.name == "SmellyCloudAbility"){
                 abilities[1] = true;
-                Debug.Log("SmellyCloudPickedUp");
                 Destroy(other.gameObject);
-            }
-            Debug.Log(world.AssignedIsland + " : " +  world.oldAssigned);
-            if(world.AssignedIsland != world.oldAssigned){
-                Debug.Log(world.playableLevels[world.oldAssigned].name + " : " + other.gameObject.name);
-                if(world.Islands[world.oldAssigned] == other.gameObject){
-                    Debug.Log(playerInput.interaction);
-                    if(playerInput.interaction){
-                        world.takenPortal = true;
-                    }
-                }
             }
         }
         void OnTriggerStay(Collider other)
@@ -144,6 +138,16 @@ namespace StarterAssets
                 playerInput.cursorInputForLook = false;
                 dead=true;
             }
+            Debug.Log(world.AssignedIsland + " : " +  world.oldAssigned);
+            if(world.AssignedIsland != world.oldAssigned){
+                Debug.Log(world.playableLevels[world.oldAssigned].name + " : " + other.gameObject.name);
+                if(world.Islands[world.oldAssigned] == other.gameObject){
+                    if(pressedE){
+                        pressedE = false;
+                        world.takenPortal = true;
+                    }
+                }
+            }
         }
 
         void leafKunai(){
@@ -153,7 +157,6 @@ namespace StarterAssets
             Vector3 rototot = self.transform.forward;
             
             leaf.GetComponent<Rigidbody>().AddForce(cam.transform.forward *10);
-            Debug.Log(cam.transform.forward);
             leaf.transform.Rotate(cam.transform.rotation.eulerAngles.x + 270f,cam.transform.rotation.eulerAngles.y,cam.transform.rotation.eulerAngles.z);
             Destroy(leaf, 2);
         }
@@ -161,7 +164,6 @@ namespace StarterAssets
         void AoeSmellyCloud(){
             smelly  = UnityEngine.Object.Instantiate(smellyCloud,self.transform.position + pos, Quaternion.identity);
             smellyAbilityActivated = true;
-            Debug.Log("smellyCloudActivated");
         }
         void RespawnBtnClick(){
             world.restartGame();

@@ -16,7 +16,7 @@ namespace StarterAssets
 		public bool ability2;
 		public bool ability3;
 		public bool ability4;
-		public bool interaction;
+		public bool interaction = false;
 
 		[Header("Movement Settings")]
 		public bool analogMovement;
