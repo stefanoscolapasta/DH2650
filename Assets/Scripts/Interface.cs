@@ -35,6 +35,8 @@ namespace StarterAssets
         bool dead = false;
         private GameObject hpBar;
         public bool pressedE = false;
+        public GameObject victory;
+        public GameObject button;
         
         public 
         //private int currentWave = 0;
@@ -52,6 +54,8 @@ namespace StarterAssets
             respawnButton.onClick.AddListener(RespawnBtnClick);
             gardenButton.onClick.AddListener(GardenBtnClick);
             hpBar = GameObject.FindGameObjectWithTag("playerhp");
+            victory.SetActive(false);
+            button.SetActive(false);
         }
 
         // Update is called once per frame
@@ -136,6 +140,7 @@ namespace StarterAssets
                 hpBar.SetActive(false);
                 playerInput.cursorLocked = false;
                 playerInput.cursorInputForLook = false;
+                button.SetActive(true);
                 dead=true;
             }
             Debug.Log(world.AssignedIsland + " : " +  world.oldAssigned);
