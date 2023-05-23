@@ -130,7 +130,10 @@ namespace StarterAssets
                 }
                 if(otherGameObject.tag == "Boss" && !otherGameObject.GetComponent<BossMove>().isDead()){
                     health -= 25;
-                    bossAtkTimeout = 0.1f;
+                    bossAtkTimeout = 3f;
+                    otherGameObject.GetComponent<BossMove>().currentAttack = 0;
+                    otherGameObject.GetComponent<BossMove>().changeAttackTimer = 4f;
+                  //  otherGameObject.GetComponent<BossMove>().animator.SetBool("run",false);
                 }
             }
             

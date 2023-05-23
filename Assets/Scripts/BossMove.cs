@@ -14,9 +14,9 @@ public class BossMove : MonoBehaviour
     
     float attackTimeout = 0.3f;
 
-    float changeAttackTimer = 3.0f;
+    public float changeAttackTimer = 3.0f;
 
-    int currentAttack = 0;
+    public int currentAttack = 0;
 
     public int health = 200;
   //  public GameObject healthBar;
@@ -61,6 +61,7 @@ public class BossMove : MonoBehaviour
             }
 
             if(currentAttack == 0){ //Follow player
+                animator.SetBool("run",true);
                 enemyObj.transform.LookAt(player.transform.position);
                 speed = 2;
                 if(attackTimeout <= 0){
