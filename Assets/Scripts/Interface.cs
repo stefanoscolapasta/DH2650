@@ -66,8 +66,11 @@ namespace StarterAssets
                 playerInput.cursorLocked = false;
                 playerInput.cursorInputForLook = false;
                 Cursor.visible = true;
-            }else{
+            }
+            if (health > 0){
                 Cursor.visible = false;
+            } else{
+                Cursor.visible = true;
             }
             
             if(Input.GetKeyDown(KeyCode.E)){
@@ -153,6 +156,7 @@ namespace StarterAssets
                 playerInput.cursorInputForLook = false;
                 button.SetActive(true);
                 dead=true;
+                Cursor.visible = false;
             }
             Debug.Log(world.AssignedIsland + " : " +  world.oldAssigned);
             if(world.AssignedIsland != world.oldAssigned){
