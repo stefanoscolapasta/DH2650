@@ -85,7 +85,7 @@ public class BossMove : MonoBehaviour
                 }
             } else if (currentAttack == 1){ //Spin-attack
                 speed = 2;
-                enemyObj.transform.Rotate(0,6,0,Space.Self);
+                enemyObj.transform.Rotate(0,8,0,Space.Self);
                 if(attackTimeout <= 0){
                         GameObject kunai = Instantiate(weapon, weaponSpawn.transform.transform.position,Quaternion.identity);
                         kunai.tag = "BossAtk";
