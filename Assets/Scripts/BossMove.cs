@@ -89,6 +89,7 @@ public class BossMove : MonoBehaviour
                 if(attackTimeout <= 0){
                         GameObject kunai = Instantiate(weapon, weaponSpawn.transform.transform.position,Quaternion.identity);
                         kunai.tag = "BossAtk";
+                        //kunai.transform.rotation = enemyObj.transform.rotation + new Vector3(90f,0f,0f);
                         kunai.GetComponent<Rigidbody>().AddForce(transform.forward*5);
                         attackTimeout = 0.2f;
                         Destroy(kunai, 3);
