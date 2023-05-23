@@ -62,6 +62,14 @@ namespace StarterAssets
         void FixedUpdate()
         
         {
+            if(victory.activeSelf){
+                playerInput.cursorLocked = false;
+                playerInput.cursorInputForLook = false;
+                Cursor.visible = true;
+            }else{
+                Cursor.visible = false;
+            }
+            
             if(Input.GetKeyDown(KeyCode.E)){
                 pressedE = true;
             }
