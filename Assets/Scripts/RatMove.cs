@@ -55,16 +55,13 @@ public class RatMove : MonoBehaviour
         }
          
     }
-    void OnCollisionStay(Collision col){
-        //Debug.Log("getTag: " + col.collider.gameObject.tag);
-        if(col.collider.gameObject.tag == "Plant"){
-            speed = 0;
-        }
-    }
+
 
     void OnTriggerEnter(Collider other){
        // Debug.Log(other.gameObject.tag + " Enter ");
-       
+       if(other.gameObject.tag == "Plant"){
+            speed = 0;
+        }
         if(other.gameObject.tag == "Player"){
             speed = speed * -1;
             attacking = true;
